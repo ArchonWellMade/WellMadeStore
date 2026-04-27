@@ -12,11 +12,12 @@ import { getFeaturedProducts } from "@/shared/data/products";
 export default function Home() {
   const featured = getFeaturedProducts(4);
 
-  const drones = getCategoryBySlug("drones")!;
-  const cars = getCategoryBySlug("rc-cars")!;
-  const swords = getCategoryBySlug("flying-rc-swords")!;
-  const motos = getCategoryBySlug("rc-motorcycles")!;
-  const parts = getCategoryBySlug("parts-batteries")!;
+  const cars = getCategoryBySlug("premium-metal-rc-cars")!;
+  const drones = getCategoryBySlug("foldable-camera-drones")!;
+  const boats = getCategoryBySlug("sleek-speed-boats")!;
+  const robots = getCategoryBySlug("smart-gesture-robots")!;
+  const motos = getCategoryBySlug("minimalist-rc-motorcycles")!;
+  const planes = getCategoryBySlug("modern-gliders-planes")!;
 
   return (
     <>
@@ -25,95 +26,93 @@ export default function Home() {
       <Marquee
         tone="ignition"
         items={[
-          "RC Cars",
-          "Drones",
-          "Motorcycles",
-          "Planes",
-          "Boats",
-          "Helicopters",
-          "Flying RC Swords",
-          "Parts & Batteries",
+          "Premium Metal RC Cars",
+          "Foldable Camera Drones",
+          "Sleek Speed Boats",
+          "Smart Gesture Robots",
+          "Minimalist RC Motorcycles",
+          "Modern Gliders & Planes",
         ]}
       />
 
       <StatStrip />
 
       <FeatureSection
-        eyebrow="Drones"
-        title="Open the sky."
-        subtitle="1-inch sensor. 38-minute flight. Occusync 4 transmission at 15 km. Or strap on the freestyle 5-inch and pull 110 mph through a punchout."
+        eyebrow="Premium Metal RC Cars"
+        title="Solid metal. Smooth lines."
+        subtitle="Authentic licensed replicas — Tesla, Porsche, Audi, classic sports cars — crafted with solid metal bodies and refined finishes. Designed for both display and play."
+        imageUrl="https://images.unsplash.com/photo-1675301586777-2c56ee8aa5ef?w=2400&q=85&auto=format&fit=crop"
+        imageAlt="Premium die-cast RC car on dirt road"
+        primaryCta={{ label: "Shop metal cars", href: `/products?category=${cars.slug}` }}
+        secondaryCta={{ label: "See licensed models", href: "/products" }}
+        theme="light"
+        layout="stack"
+        scaleTag={{ scale: "1:64 / 1:43 SCALE", label: "Die-cast metal · Gyro RC" }}
+      />
+
+      <FeatureSection
+        eyebrow="Foldable Camera Drones"
+        title="Folds away. Flies anywhere."
+        subtitle="Compact innovation. Pocket-friendly frames in neutral colorways, one-key takeoff, stable hover, integrated HD optics. Built to capture, built to last."
         imageUrl="https://images.unsplash.com/photo-1556537902-16b47f40c55c?w=2400&q=85&auto=format&fit=crop"
-        imageAlt="Hobby-grade RC drone"
+        imageAlt="Foldable hobby drone"
         primaryCta={{ label: "Shop drones", href: `/products?category=${drones.slug}` }}
         secondaryCta={{ label: "Compare models", href: "/products" }}
-        theme="light"
-        layout="stack"
-        scaleTag={{ scale: "5\" RACE QUAD", label: "FPV · Hobby grade RC" }}
-      />
-
-      <FeatureSection
-        eyebrow="RC Cars"
-        title="Pavement, optional."
-        subtitle="GT3-derived chassis geometry. Carbon-Kevlar tub. Sensored 6-pole brushless motor pulling 0–60 in 2.4 seconds. Scale weight, full-size violence."
-        imageUrl="https://images.unsplash.com/photo-1758621514034-8940de958212?w=2400&q=85&auto=format&fit=crop"
-        imageAlt="Race car at speed with motion blur"
-        primaryCta={{ label: "Shop RC cars", href: `/products?category=${cars.slug}` }}
-        secondaryCta={{ label: "See the Apex 1:8", href: "/products" }}
         theme="dark"
         layout="stack"
-        scaleTag={{ scale: "1:8 SCALE", label: "Brushless RC · Bash-proof" }}
+        scaleTag={{ scale: "FOLDABLE", label: "HD optics · One-key launch" }}
       />
 
       <FeatureSection
-        eyebrow="New · Limited drop"
-        title="A blade. With wings."
-        subtitle="Blade-shaped airframe. Six-axis gyro. RGB edge optics that throw real spill. 12 minutes hover, indoor or out — and yes, it does carve."
-        imageUrl="https://images.unsplash.com/photo-1671015522549-e7aa41ded44f?w=2000&q=85&auto=format&fit=crop"
-        imageAlt="Katana blade with dramatic lighting"
-        primaryCta={{ label: "Shop flying swords", href: `/products?category=${swords.slug}` }}
-        secondaryCta={{ label: "How it flies", href: "/about" }}
+        eyebrow="Smart Gesture Robots"
+        title="Wave. It listens."
+        subtitle="Intuitive technology, simply made. Soft round shapes, smooth finishes, and gestures that just work. Smart enough to surprise you, simple enough to live with."
+        imageUrl="https://images.unsplash.com/photo-1535378620166-273708d44e4c?w=2000&q=85&auto=format&fit=crop"
+        imageAlt="Minimalist white smart robot"
+        primaryCta={{ label: "Shop robots", href: `/products?category=${robots.slug}` }}
+        secondaryCta={{ label: "How they work", href: "/about" }}
         theme="light"
         layout="split"
-        scaleTag={{ scale: "NOVELTY FLYER", label: "Six-axis gyro RC" }}
+        scaleTag={{ scale: "GESTURE CONTROL", label: "Voice + Vision · Obstacle aware" }}
       />
 
       <FeatureSection
-        eyebrow="Motorcycles"
-        title="Lean into it."
-        subtitle="1:5 scale. Live MotoGP lean angle. Carbon swingarm, working headlights, dual-clutch slipper. Geometry pulled from the 2025 superbike grid."
-        imageUrl="https://images.unsplash.com/photo-1761813163091-7d14e60a0722?w=2400&q=85&auto=format&fit=crop"
-        imageAlt="Sportbike leaning into a track corner"
+        eyebrow="Minimalist RC Motorcycles"
+        title="Authentic. In miniature."
+        subtitle="Real bike geometry, reimagined at scale. Self-balancing technology, realistic proportions, solid construction. The look of a real bike, in the hand."
+        imageUrl="https://images.unsplash.com/photo-1609160089140-8da843632872?w=2400&q=85&auto=format&fit=crop"
+        imageAlt="Scale-model motorcycle on white surface"
         primaryCta={{ label: "Shop motorcycles", href: `/products?category=${motos.slug}` }}
-        secondaryCta={{ label: "Watch the lean test", href: "/about" }}
+        secondaryCta={{ label: "See the lean test", href: "/about" }}
         theme="dark"
         layout="stack"
-        scaleTag={{ scale: "1:5 SCALE", label: "Self-balancing RC" }}
+        scaleTag={{ scale: "1:5 SCALE", label: "Self-balancing · Authentic" }}
       />
 
       <FeatureSection
-        eyebrow="Parts & Batteries"
-        title="Built to be rebuilt."
-        subtitle="100C continuous LiPos, IR-tested cell-by-cell. Sensored stators wound to 0.05Ω tolerance. Every part on the bench is one we'd run ourselves."
-        imageUrl="https://images.unsplash.com/photo-1622319491968-62c2f54ba5d6?w=2000&q=85&auto=format&fit=crop"
-        imageAlt="Precision-machined engine detail close-up"
-        primaryCta={{ label: "Shop parts", href: `/products?category=${parts.slug}` }}
-        secondaryCta={{ label: "Build guides", href: "/about" }}
+        eyebrow="Modern Gliders & Planes"
+        title="Light. Long. Lasting."
+        subtitle="Designed by the principles of flight. Sleek delta wings, durable EPP foam, easy launch, stable cruise. Form follows function — and lasts."
+        imageUrl="https://images.unsplash.com/photo-1606370744289-16795bbded58?w=2000&q=85&auto=format&fit=crop"
+        imageAlt="Modern scale-model airplane on grass"
+        primaryCta={{ label: "Shop planes", href: `/products?category=${planes.slug}` }}
+        secondaryCta={{ label: "Browse boats", href: `/products?category=${boats.slug}` }}
         theme="light"
         layout="split"
-        scaleTag={{ scale: "HOBBY GRADE", label: "Parts · LiPo · Brushless" }}
+        scaleTag={{ scale: "DELTA WING", label: "EPP Foam · Wind-resistant" }}
       />
 
       <Marquee
         tone="graphite"
         items={[
-          "Brushless",
-          "Carbon",
-          "Sensored",
-          "100C LiPo",
-          "FPV",
-          "1:8 Scale",
-          "Gyro-stabilized",
-          "Lab-tested",
+          "Solid Metal",
+          "Hand-finished",
+          "Premium Materials",
+          "Designed to Last",
+          "RCM Certified · AU",
+          "Minimal · Intentional",
+          "Quality over Noise",
+          "Built to Endure",
         ]}
       />
 
@@ -125,10 +124,11 @@ export default function Home() {
                 Featured this season
               </p>
               <h2 className="mx-auto mt-5 max-w-[16ch] font-display text-[44px] font-500 leading-[0.95] tracking-apple-mass text-balance sm:text-[64px] lg:text-[80px]">
-                Hand-picked by the pit crew.
+                Made well. Quietly.
               </h2>
               <p className="mx-auto mt-6 max-w-2xl text-balance text-base font-300 tracking-apple-tight text-muted-foreground">
-                Tested, tuned, and signed off before they hit the shelf.
+                Hand-picked, built to endure, finished with care. The pieces we think
+                deserve a spot on your shelf.
               </p>
             </ScrollReveal>
             <div className="mt-16 grid gap-y-16 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4">
@@ -158,14 +158,14 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1280px] px-6 py-32 text-center sm:py-40">
           <ScrollReveal>
             <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-forest)]">
-              The pit crew
+              The Well Made promise
             </p>
             <h2 className="mx-auto mt-5 max-w-[14ch] font-display text-[44px] font-500 leading-[0.95] tracking-apple-mass text-balance sm:text-[64px] lg:text-[88px]">
-              Build logs. Restock alerts. Tuning notes.
+              Quality you can feel.
             </h2>
             <p className="mx-auto mt-7 max-w-xl text-balance text-base font-300 leading-relaxed text-white/75 sm:text-lg">
-              Members-only drops and hard-won tuning advice from people who run these
-              builds harder than you will.
+              Solid materials. Considered design. RCM certified for Australia.
+              30-day no-questions returns. Built so they last past the season.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
               <Link href="/about" className="group inline-flex items-center gap-2 text-[15px] font-medium text-white">

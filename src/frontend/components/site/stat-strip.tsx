@@ -10,10 +10,10 @@ type Stat = {
 };
 
 const stats: Stat[] = [
-  { to: 60, suffix: "+ mph", label: "Top speed, stock" },
-  { to: 8, suffix: " min", label: "Charge to full" },
-  { to: 1.2, decimals: 1, suffix: " km", label: "Control range" },
-  { to: 100, suffix: "C", label: "LiPo discharge" },
+  { to: 60, suffix: "+ min", label: "Drone flight time" },
+  { to: 43, prefix: "1:", label: "Die-cast scale" },
+  { to: 30, suffix: " day", label: "No-questions returns" },
+  { to: 100, suffix: "%", label: "RCM certified · AU" },
 ];
 
 export function StatStrip() {
