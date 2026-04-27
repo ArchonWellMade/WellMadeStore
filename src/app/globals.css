@@ -317,7 +317,42 @@
   }
 }
 
-/* Hero animated scene — SVG buggy with spinning wheels, smoke, lights */
+/* Hero motion: video scroll-zoom + mouse parallax compose via CSS vars
+   - --hero-scroll (0..1) is set by HeroScrollDriver
+   - --mp-x / --mp-y are set per-element by MouseParallax
+   The video and content layer combine both transforms through translate3d. */
+.hero-section {
+  --hero-scroll: 0;
+}
+
+.hero-video {
+  transform: translate3d(0, calc(var(--hero-scroll) * 40px), 0)
+    scale(calc(1 + var(--hero-scroll) * 0.12));
+  transform-origin: center;
+  will-change: transform;
+}
+
+.hero-bg-layer {
+  transform: translate3d(var(--mp-x, 0px), var(--mp-y, 0px), 0);
+  will-change: transform;
+}
+
+.hero-content-layer {
+  transform: translate3d(var(--mp-x, 0px), calc(var(--mp-y, 0px) + var(--hero-scroll) * -60px), 0);
+  opacity: calc(1 - var(--hero-scroll) * 0.7);
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video,
+  .hero-bg-layer,
+  .hero-content-layer {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Hero animated scene — atmospheric overlays */
 .hero-scene {
   position: absolute;
   inset: 0;

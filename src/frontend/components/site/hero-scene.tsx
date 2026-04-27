@@ -35,8 +35,15 @@ export function HeroScene() {
         <span /><span /><span /><span /><span /><span />
       </div>
 
-      {/* Tachometer HUD bottom-right */}
-      <div className="absolute bottom-6 right-6 hidden flex-col items-end gap-1 sm:flex">
+      {/* Tachometer HUD bottom-right — data-depth makes it parallax with cursor */}
+      <div
+        data-depth="0.7"
+        className="absolute bottom-6 right-6 hidden flex-col items-end gap-1 sm:flex"
+        style={{
+          transform: "translate3d(var(--mp-x, 0px), var(--mp-y, 0px), 0)",
+          willChange: "transform",
+        }}
+      >
         <svg viewBox="0 0 132 132" className="hero-tach">
           <circle cx="66" cy="66" r="58" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
           <path

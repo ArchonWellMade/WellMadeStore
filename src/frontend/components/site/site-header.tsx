@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ShoppingBag, Search } from "lucide-react";
 import { categories } from "@/shared/data/categories";
+import { ScrollProgress } from "@/frontend/components/site/scroll-progress";
 
 const PRIMARY_NAV = categories
   .filter((c) => c.is_active)
@@ -10,6 +11,7 @@ const PRIMARY_NAV = categories
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 bg-[rgba(14,14,16,0.78)] backdrop-blur-xl supports-[backdrop-filter]:bg-[rgba(14,14,16,0.68)]">
+      <ScrollProgress />
       <div className="mx-auto flex h-11 max-w-[1024px] items-center justify-between px-5 text-[#f5f5f7]">
         <Link
           href="/"
