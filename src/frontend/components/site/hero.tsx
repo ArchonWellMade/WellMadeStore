@@ -6,13 +6,20 @@ import { HeroScene } from "@/frontend/components/site/hero-scene";
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden bg-[color:var(--brand-graphite)] text-white">
-      {/* Cinematic gradient base */}
+      {/* Real RC vehicle photo, dim, with cinematic gradient layered on top */}
       <div aria-hidden className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_55%_70%,_rgba(255,90,31,0.18)_0%,_transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_rgba(14,14,16,0.6)_60%,_rgba(14,14,16,0.92)_100%)]" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1579271723124-a758848c2753?w=2400&q=85&auto=format&fit=crop"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-50"
+          style={{ animation: "heroSlowZoom 16s ease-in-out infinite" }}
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_55%_72%,_rgba(255,90,31,0.22)_0%,_transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(14,14,16,0.35)_0%,_rgba(14,14,16,0.7)_60%,_rgba(14,14,16,0.96)_100%)]" />
       </div>
 
-      {/* Animated drifting buggy scene */}
+      {/* Atmospheric overlays — track, scan, flares, speedlines, tach HUD */}
       <HeroScene />
 
       {/* Top eyebrow rail — Apple Pro page style */}
