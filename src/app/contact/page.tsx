@@ -11,7 +11,7 @@ export default function ContactPage() {
     <section className="bg-background">
       <div className="mx-auto max-w-[860px] px-6 py-24 sm:py-32">
         <ScrollReveal>
-          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-ignition)]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-forest)]">
             Contact
           </p>
           <h1 className="mt-4 font-display text-4xl font-500 tracking-apple-display sm:text-6xl">
@@ -26,12 +26,12 @@ export default function ContactPage() {
         <div className="mt-16 grid gap-6 sm:grid-cols-2">
           <ScrollReveal className="bezel-outer">
             <div className="bezel-inner flex flex-col gap-3">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-ignition)]">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-forest)]">
                 Email
               </p>
               <a
                 href="mailto:hello@wellmadestore.com"
-                className="font-display text-2xl font-500 tracking-apple-tight text-foreground hover:text-[color:var(--brand-ignition)] transition-colors"
+                className="font-display text-2xl font-500 tracking-apple-tight text-foreground hover:text-[color:var(--brand-gold)] transition-colors"
               >
                 hello@wellmadestore.com
               </a>
@@ -43,12 +43,12 @@ export default function ContactPage() {
 
           <ScrollReveal delayMs={120} className="bezel-outer">
             <div className="bezel-inner flex flex-col gap-3">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-ignition)]">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-forest)]">
                 Phone
               </p>
               <a
                 href="tel:+15555550199"
-                className="font-display text-2xl font-500 tracking-apple-tight text-foreground hover:text-[color:var(--brand-ignition)] transition-colors"
+                className="font-display text-2xl font-500 tracking-apple-tight text-foreground hover:text-[color:var(--brand-gold)] transition-colors"
               >
                 +1 (555) 555-0199
               </a>

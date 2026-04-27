@@ -58,7 +58,7 @@ export function FeatureSection({
         <div className="relative mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-6 py-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:py-40">
           <ScrollReveal>
             {eyebrow ? (
-              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-ignition)]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-forest)]">
                 {eyebrow}
               </p>
             ) : null}
@@ -110,7 +110,7 @@ export function FeatureSection({
       <div className="relative mx-auto max-w-[1280px] px-6 pt-28 text-center sm:pt-36 lg:pt-44">
         <ScrollReveal>
           {eyebrow ? (
-            <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-ignition)]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-forest)]">
               {eyebrow}
             </p>
           ) : null}
@@ -151,7 +151,7 @@ export function FeatureSection({
           <div
             className="absolute right-5 top-5 hidden items-center gap-2 rounded-full border border-white/15 bg-black/40 px-3 py-1.5 text-[10px] uppercase tracking-[0.28em] text-white/85 backdrop-blur sm:flex"
           >
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--brand-ignition)] [animation:glowPulse_1.4s_ease-in-out_infinite]" />
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--brand-gold)] [animation:glowPulse_1.4s_ease-in-out_infinite]" />
             Live
           </div>
         </div>
@@ -167,7 +167,7 @@ function CtaLink({
 }: Cta & { underlineClass: string }) {
   return (
     <Link href={href} className="group inline-flex items-center gap-2 text-[15px] font-medium">
-      <span className={`border-b ${underlineClass} pb-1 transition-colors group-hover:border-[color:var(--brand-ignition)]`}>
+      <span className={`border-b ${underlineClass} pb-1 transition-colors group-hover:border-[color:var(--brand-gold)]`}>
         {label}
       </span>
       <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
@@ -181,8 +181,8 @@ function ScaleBadge({ scale, label }: ScaleTag) {
   return (
     <div className="pointer-events-none absolute bottom-5 left-5 flex flex-col gap-1 rounded-md border border-white/15 bg-black/55 px-3.5 py-2.5 backdrop-blur">
       <div className="flex items-center gap-2">
-        <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--brand-ignition)] [animation:glowPulse_1.6s_ease-in-out_infinite]" />
-        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-ignition)]">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--brand-gold)] [animation:glowPulse_1.6s_ease-in-out_infinite]" />
+        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-forest)]">
           {scale}
         </span>
       </div>

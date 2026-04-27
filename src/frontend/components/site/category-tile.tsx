@@ -41,7 +41,7 @@ export function CategoryTile({
               ›
             </span>
           </span>
-          <span className="inline-flex items-center gap-1 text-[14px] font-medium underline decoration-white/50 decoration-2 underline-offset-[6px] transition-colors hover:decoration-[color:var(--brand-ignition)]">
+          <span className="inline-flex items-center gap-1 text-[14px] font-medium underline decoration-white/50 decoration-2 underline-offset-[6px] transition-colors hover:decoration-[color:var(--brand-gold)]">
             Shop
             <span aria-hidden className="transition-transform group-hover:translate-x-1">
               ›

@@ -13,7 +13,7 @@ export default function AboutPage() {
     <section className="bg-background">
       <div className="mx-auto max-w-[860px] px-6 py-24 sm:py-32">
         <ScrollReveal>
-          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-ignition)]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-forest)]">
             About
           </p>
           <h1 className="mt-4 font-display text-4xl font-500 tracking-apple-display sm:text-6xl">

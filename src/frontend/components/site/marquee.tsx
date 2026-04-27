@@ -7,7 +7,7 @@ type Props = {
 export function Marquee({ items, tone = "ignition" }: Props) {
   const palette =
     tone === "ignition"
-      ? "bg-[color:var(--brand-ignition)] text-white"
+      ? "bg-[color:var(--brand-gold)] text-white"
       : tone === "graphite"
       ? "bg-[color:var(--brand-graphite)] text-white"
       : "bg-transparent text-foreground/60";

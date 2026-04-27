@@ -17,7 +17,7 @@ export function HeroScene() {
         className="absolute left-[18%] top-[28%] h-72 w-72 rounded-full blur-3xl"
         style={{
           background:
-            "radial-gradient(circle, rgba(255,90,31,0.45) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(233,168,32,0.45) 0%, transparent 70%)",
           animation: "glowPulse 3.2s ease-in-out infinite",
         }}
       />
@@ -50,7 +50,7 @@ export function HeroScene() {
             className="arc-glow"
             d="M 80 22 A 56 56 0 0 1 110 92"
             fill="none"
-            stroke="#FF5A1F"
+            stroke="#E9A820"
             strokeWidth="6"
             strokeLinecap="round"
           />
@@ -74,10 +74,10 @@ export function HeroScene() {
             );
           })}
           <g className="needle">
-            <rect x="64.5" y="22" width="3" height="46" rx="1.5" fill="#FF5A1F" />
-            <circle cx="66" cy="68" r="6" fill="#0a0a0c" stroke="#FF5A1F" strokeWidth="2" />
+            <rect x="64.5" y="22" width="3" height="46" rx="1.5" fill="#E9A820" />
+            <circle cx="66" cy="68" r="6" fill="#0a0a0c" stroke="#E9A820" strokeWidth="2" />
           </g>
-          <circle cx="66" cy="68" r="2.5" fill="#FF5A1F" />
+          <circle cx="66" cy="68" r="2.5" fill="#E9A820" />
           <text
             x="66"
             y="106"
@@ -92,7 +92,7 @@ export function HeroScene() {
           </text>
         </svg>
         <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-white/55">
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--brand-ignition)] [animation:glowPulse_1.4s_ease-in-out_infinite]" />
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--brand-gold)] [animation:glowPulse_1.4s_ease-in-out_infinite]" />
           Live telemetry
         </div>
       </div>

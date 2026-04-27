@@ -13,7 +13,7 @@ export function DividerStreak({ tone = "ignition" }: Props) {
       : "bg-[color:var(--brand-graphite)]";
   const lineColor =
     tone === "ignition"
-      ? "rgba(255,90,31,0.85)"
+      ? "rgba(233,168,32,0.85)"
       : "rgba(255,255,255,0.55)";
 
   return (

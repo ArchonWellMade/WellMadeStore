@@ -121,7 +121,7 @@ export default function Home() {
         <section className="bg-background">
           <div className="mx-auto max-w-[1280px] px-6 py-28 sm:py-36">
             <ScrollReveal className="text-center">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-ignition)]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-forest)]">
                 Featured this season
               </p>
               <h2 className="mx-auto mt-5 max-w-[16ch] font-display text-[44px] font-500 leading-[0.95] tracking-apple-mass text-balance sm:text-[64px] lg:text-[80px]">
@@ -157,7 +157,7 @@ export default function Home() {
         <div aria-hidden className="light-sweep" />
         <div className="relative mx-auto max-w-[1280px] px-6 py-32 text-center sm:py-40">
           <ScrollReveal>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-ignition)]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-forest)]">
               The pit crew
             </p>
             <h2 className="mx-auto mt-5 max-w-[14ch] font-display text-[44px] font-500 leading-[0.95] tracking-apple-mass text-balance sm:text-[64px] lg:text-[88px]">
@@ -169,13 +169,13 @@ export default function Home() {
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
               <Link href="/about" className="group inline-flex items-center gap-2 text-[15px] font-medium text-white">
-                <span className="border-b border-white/45 pb-1 transition-colors group-hover:border-[color:var(--brand-ignition)]">
+                <span className="border-b border-white/45 pb-1 transition-colors group-hover:border-[color:var(--brand-gold)]">
                   Our story
                 </span>
                 <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">›</span>
               </Link>
               <Link href="/contact" className="group inline-flex items-center gap-2 text-[15px] font-medium text-white">
-                <span className="border-b border-white/45 pb-1 transition-colors group-hover:border-[color:var(--brand-ignition)]">
+                <span className="border-b border-white/45 pb-1 transition-colors group-hover:border-[color:var(--brand-gold)]">
                   Get in touch
                 </span>
                 <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">›</span>

@@ -22,13 +22,13 @@ export function StatStrip() {
       {/* Animated scan line across the section */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[color:var(--brand-ignition)] to-transparent opacity-60"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[color:var(--brand-gold)] to-transparent opacity-60"
         style={{ animation: "lightSweep 6s ease-in-out infinite" }}
       />
       <div className="mx-auto max-w-[1280px] px-6 py-20 sm:py-24">
         <ScrollReveal className="text-center">
-          <p className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-ignition)]">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--brand-ignition)] [animation:glowPulse_1.6s_ease-in-out_infinite]" />
+          <p className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-forest)]">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--brand-gold)] [animation:glowPulse_1.6s_ease-in-out_infinite]" />
             Spec at a glance
           </p>
         </ScrollReveal>

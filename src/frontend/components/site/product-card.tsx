@@ -39,7 +39,7 @@ export function ProductCard({
         </div>
         <div className="mt-6 text-center">
           {categoryTitle ? (
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-ignition)]">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-forest)]">
               {categoryTitle}
             </p>
           ) : null}
@@ -58,13 +58,13 @@ export function ProductCard({
       </Link>
       <div className="mt-5 flex items-center justify-center gap-8">
         <Link href={href} className="group/cta inline-flex items-center gap-1 text-[14px] font-medium text-foreground">
-          <span className="border-b border-foreground/30 pb-0.5 transition-colors group-hover/cta:border-[color:var(--brand-ignition)]">
+          <span className="border-b border-foreground/30 pb-0.5 transition-colors group-hover/cta:border-[color:var(--brand-gold)]">
             Learn more
           </span>
           <span aria-hidden className="transition-transform duration-300 group-hover/cta:translate-x-1">›</span>
         </Link>
-        <Link href={href} className="group/cta inline-flex items-center gap-1 text-[14px] font-medium text-[color:var(--brand-ignition)]">
-          <span className="border-b border-[color:var(--brand-ignition)]/40 pb-0.5 transition-colors group-hover/cta:border-[color:var(--brand-ignition)]">
+        <Link href={href} className="group/cta inline-flex items-center gap-1 text-[14px] font-medium text-[color:var(--brand-forest)]">
+          <span className="border-b border-[color:var(--brand-gold)]/40 pb-0.5 transition-colors group-hover/cta:border-[color:var(--brand-gold)]">
             Buy
           </span>
           <span aria-hidden className="transition-transform duration-300 group-hover/cta:translate-x-1">›</span>

@@ -27,7 +27,7 @@ export default async function ProductsPage({
     <section className="bg-background">
       <div className="mx-auto max-w-[1200px] px-6 py-20 sm:py-28">
         <ScrollReveal className="text-center">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-ignition)]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-forest)]">
             {activeCategory ? activeCategory.title : "All products"}
           </p>
           <h1 className="mt-4 font-display text-4xl font-500 tracking-apple-display sm:text-6xl">
