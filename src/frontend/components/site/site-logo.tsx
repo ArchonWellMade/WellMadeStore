@@ -48,10 +48,10 @@ export function SiteLogo({
           points="248.29,87 243.45,94.42 238.53,102 224.2,124 224.13,124.11 235.12,141 265.7,188 304.45,188 304.45,0.69"
         />
       </svg>
-      <span
-        className={`font-extrabold text-[color:var(--brand-gold)] ${wordClass}`}
-      >
-        WELL&nbsp;MADE
+      <span className={`font-extrabold ${wordClass}`}>
+        <span className="text-[color:var(--brand-forest)]">WELL</span>
+        <span>&nbsp;</span>
+        <span className="text-[color:var(--brand-gold)]">MADE</span>
       </span>
       <span className="sr-only">WellMade Store</span>
     </Link>

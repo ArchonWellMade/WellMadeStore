@@ -30,8 +30,11 @@ export function SiteHeader() {
               points="248.29,87 243.45,94.42 238.53,102 224.2,124 224.13,124.11 235.12,141 265.7,188 304.45,188 304.45,0.69"
             />
           </svg>
-          <span className="text-[10.5px] font-extrabold uppercase tracking-[0.28em] text-[color:var(--brand-gold,#E9A820)]">
-            Well&nbsp;Made <span className="text-[#f5f5f7]/65">Store</span>
+          <span className="text-[10.5px] font-extrabold uppercase tracking-[0.28em]">
+            <span className="text-[color:var(--brand-forest,#1F5E4B)]">Well</span>
+            <span>&nbsp;</span>
+            <span className="text-[color:var(--brand-gold,#E9A820)]">Made</span>
+            <span className="text-[#f5f5f7]/65">&nbsp;Store</span>
           </span>
         </Link>
 
