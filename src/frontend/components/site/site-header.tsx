@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ShoppingBag, Search } from "lucide-react";
 import { categories } from "@/shared/data/categories";
 import { ScrollProgress } from "@/frontend/components/site/scroll-progress";
+import { ThemeToggle } from "@/frontend/components/site/theme-toggle";
 
 const PRIMARY_NAV = categories
   .filter((c) => c.is_active)
@@ -56,6 +57,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex h-11 items-center gap-0.5">
+          <ThemeToggle />
           <Link
             href="/products"
             aria-label="Search"
