@@ -79,6 +79,17 @@ export const categories: Category[] = [
     display_order: 6,
     is_active: true,
   },
+  {
+    slug: "handheld-gimbals",
+    title: "Handheld Gimbals",
+    description:
+      "Smooth, stabilized capture. Pocketable design, intuitive control.",
+    longDescription:
+      "Steady footage, effortlessly. Our handheld gimbals are engineered for smooth, professional-grade stabilization in a compact, considered form. Foldable frames, balanced weight, and intuitive controls make them as comfortable to carry as they are to use. Clean lines, matte finishes, and the same quiet attention to detail that defines every Well Made product.",
+    image_url: u("1606220588913-7e1d2e60a3df"),
+    display_order: 7,
+    is_active: true,
+  },
 ];
 
 export function getCategoryBySlug(slug: string): Category | undefined {

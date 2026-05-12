@@ -261,6 +261,26 @@ export const products: Product[] = [
     display_order: 13,
     is_active: true,
   },
+
+  // ── Handheld Gimbals ────────────────────────────────────────────────
+  {
+    slug: "three-axis-handheld-gimbal",
+    name: "3-Axis Handheld Gimbal",
+    category_slug: "handheld-gimbals",
+    short_description:
+      "Foldable 3-axis stabilizer for smooth, cinematic capture. Pocketable, balanced, intuitive.",
+    features: [
+      "3-axis brushless stabilization · cinematic motion",
+      "Foldable design · slips into a jacket pocket",
+      "Subject tracking, time-lapse and panorama modes",
+      "All-day battery · USB-C fast charging",
+    ],
+    price_range: "$XXX.00",
+    image_url: u("1606220588913-7e1d2e60a3df"),
+    is_featured: true,
+    display_order: 14,
+    is_active: true,
+  },
 ];
 
 export function getProductsByCategory(slug: string): Product[] {
