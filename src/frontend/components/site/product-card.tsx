@@ -8,6 +8,7 @@ export type ProductCardProps = {
   priceRange: string | null;
   imageUrl?: string | null;
   categoryTitle?: string | null;
+  features?: string[] | null;
 };
 
 export function ProductCard({

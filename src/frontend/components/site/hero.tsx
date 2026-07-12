@@ -46,7 +46,7 @@ export function Hero() {
           New: Premium Mini Drift Cars · Tesla · Porsche · Audi
           <span aria-hidden className="hidden text-white/30 sm:inline">·</span>
           <Link
-            href="/products?category=premium-metal-rc-cars"
+            href="/products?category=toys"
             className="hidden text-white/85 transition-colors hover:text-[color:var(--brand-gold)] sm:inline"
           >
             Explore ›
@@ -91,7 +91,7 @@ export function Hero() {
               </span>
             </Link>
             <Link
-              href="/products?category=premium-metal-rc-cars"
+              href="/products?category=toys"
               className="group inline-flex items-center gap-2 text-[15px] font-medium text-white"
             >
               <span className="border-b border-white/45 pb-1 transition-colors group-hover:border-[color:var(--brand-gold)]">

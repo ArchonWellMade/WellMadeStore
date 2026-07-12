@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ProductCard } from "@/frontend/components/site/product-card";
 import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
-import { categories, getCategoryBySlug } from "@/shared/data/categories";
-import { products, getProductsByCategory } from "@/shared/data/products";
+import { getCategories } from "@/shared/data/categories";
+import { getAllProducts, getProductsByCategory } from "@/shared/data/products";
 
 export const metadata: Metadata = {
   title: "Shop",
   description:
-    "The full Well Made collection — premium metal RC cars, foldable camera drones, sleek speed boats, smart gesture robots, minimalist motorcycles, modern gliders & planes.",
+    "The full Well Made collection — toys (RC cars, drones, boats, robots, motorcycles, planes), handheld gimbals, and tech essentials (power banks, cables). RCM certified for Australia.",
 };
 
 type SearchParams = { category?: string };
@@ -19,10 +19,14 @@ export default async function ProductsPage({
   searchParams: Promise<SearchParams>;
 }) {
   const { category } = await searchParams;
-  const activeCategory = category ? getCategoryBySlug(category) : undefined;
+  const categories = await getCategories();
+  const activeCategory = category
+    ? categories.find((c) => c.slug === category)
+    : undefined;
   const list = activeCategory
-    ? getProductsByCategory(activeCategory.slug)
-    : products.filter((p) => p.is_active);
+    ? await getProductsByCategory(activeCategory.slug)
+    : await getAllProducts();
+  const categoryTitleBySlug = new Map(categories.map((c) => [c.slug, c.title]));
 
   return (
     <section className="bg-background">
@@ -40,8 +44,9 @@ export default async function ProductsPage({
             </p>
           ) : (
             <p className="mx-auto mt-6 max-w-2xl text-balance text-[15px] font-300 leading-relaxed tracking-apple-tight text-muted-foreground sm:text-base">
-              Premium metal cars, foldable drones, speed boats, gesture robots,
-              minimalist bikes, and modern gliders. RCM certified for Australia.
+              Toys — RC cars, drones, boats, robots, motorcycles and planes —
+              plus handheld gimbals and tech essentials. RCM certified for
+              Australia.
             </p>
           )}
         </ScrollReveal>
@@ -90,7 +95,7 @@ export default async function ProductsPage({
                 priceRange={p.price_range}
                 features={p.features}
                 imageUrl={p.image_url}
-                categoryTitle={getCategoryBySlug(p.category_slug)?.title ?? null}
+                categoryTitle={categoryTitleBySlug.get(p.category_slug) ?? null}
               />
             ))}
           </div>

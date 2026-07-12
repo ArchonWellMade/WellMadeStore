@@ -1,15 +1,11 @@
 import Link from "next/link";
 import { ShoppingBag, Search } from "lucide-react";
-import { categories } from "@/shared/data/categories";
+import { getCategories } from "@/shared/data/categories";
 import { ScrollProgress } from "@/frontend/components/site/scroll-progress";
 import { ThemeToggle } from "@/frontend/components/site/theme-toggle";
 
-const PRIMARY_NAV = categories
-  .filter((c) => c.is_active)
-  .sort((a, b) => a.display_order - b.display_order)
-  .slice(0, 7);
-
-export function SiteHeader() {
+export async function SiteHeader() {
+  const PRIMARY_NAV = (await getCategories()).slice(0, 7);
   return (
     <header className="sticky top-0 z-40 bg-[rgba(14,14,16,0.78)] backdrop-blur-xl supports-[backdrop-filter]:bg-[rgba(14,14,16,0.68)]">
       <ScrollProgress />

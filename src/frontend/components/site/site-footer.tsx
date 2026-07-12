@@ -5,13 +5,9 @@ const footerCols = [
     heading: "Shop",
     links: [
       { href: "/products", label: "All products" },
-      { href: "/products?category=premium-metal-rc-cars", label: "Premium Metal RC Cars" },
-      { href: "/products?category=foldable-camera-drones", label: "Foldable Camera Drones" },
-      { href: "/products?category=sleek-speed-boats", label: "Sleek Speed Boats" },
-      { href: "/products?category=smart-gesture-robots", label: "Smart Gesture Robots" },
-      { href: "/products?category=minimalist-rc-motorcycles", label: "Minimalist RC Motorcycles" },
-      { href: "/products?category=modern-gliders-planes", label: "Modern Gliders & Planes" },
+      { href: "/products?category=toys", label: "Toys" },
       { href: "/products?category=handheld-gimbals", label: "Handheld Gimbals" },
+      { href: "/products?category=tech-essentials", label: "Tech Essentials" },
     ],
   },
   {
