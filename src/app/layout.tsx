@@ -7,7 +7,6 @@ import "@fontsource/fraunces/600.css";
 import "@fontsource/fraunces/700.css";
 import { SiteHeader } from "@/frontend/components/site/site-header";
 import { SiteFooter } from "@/frontend/components/site/site-footer";
-import { ThemeScript } from "@/frontend/components/site/theme-script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -40,9 +39,7 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <ThemeScript />
-      </head>
+      <head />
       <body className="min-h-full flex flex-col">
         <SiteHeader />
         <main className="flex flex-1 flex-col">{children}</main>
