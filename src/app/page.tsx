@@ -6,18 +6,15 @@ import { TrustBar } from "@/frontend/components/site/trust-bar";
 import { StatStrip } from "@/frontend/components/site/stat-strip";
 import { Marquee } from "@/frontend/components/site/marquee";
 import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
-import { getCategories, getCategoryBySlug } from "@/shared/data/categories";
+import { getCategories } from "@/shared/data/categories";
 import { getProductsByCategory } from "@/shared/data/products";
 
 export default async function Home() {
-  const [toysProducts, toys, categories] = await Promise.all([
-    getProductsByCategory("toys"),
-    getCategoryBySlug("toys"),
+  const [carsProducts, categories] = await Promise.all([
+    getProductsByCategory("high-speed-cars"),
     getCategories(),
   ]);
-  const featured = toysProducts.slice(0, 4);
-
-  if (!toys) return null;
+  const featured = carsProducts.slice(0, 4);
   const categoryTitleBySlug = new Map(categories.map((c) => [c.slug, c.title]));
 
   return (
@@ -44,7 +41,7 @@ export default async function Home() {
         subtitle="1:28 scale electric four-wheel-drive rally car with realistic simulated driving, independent suspension, and all-terrain rubber tires. Built for both display and play."
         imageUrl="https://omo-oss-image1.thefastimg.com/portal-saas/pg2025030619402182217/cms/image/52b0e20e-a650-46e5-95fa-77e41a4ddbd9.jpg?vf=B7gH3s"
         imageAlt="WL-284019-A 1:28 scale RC rally car"
-        primaryCta={{ label: "Shop RC cars", href: `/products?category=${toys.slug}` }}
+        primaryCta={{ label: "Shop RC cars", href: "/products?category=high-speed-cars" }}
         secondaryCta={{ label: "See all models", href: "/products" }}
         theme="light"
         layout="stack"
@@ -57,7 +54,7 @@ export default async function Home() {
         subtitle="Scale quadcopter helicopter with optical flow positioning and 6-axis gyroscope altitude hold. Brushless motor, stable hover, built to capture every flight."
         imageUrl="https://omo-oss-image1.thefastimg.com/portal-saas/pg2025030619402182217/cms/image/358631b7-d97c-45d2-8fc4-c89ef00c419f.jpg?vf=B7gH3s"
         imageAlt="K270 Black Hawk UH-60L scale RC helicopter"
-        primaryCta={{ label: "Shop helicopters", href: `/products?category=${toys.slug}` }}
+        primaryCta={{ label: "Shop helicopters", href: "/products?category=helicopters" }}
         secondaryCta={{ label: "Compare models", href: "/products" }}
         theme="dark"
         layout="stack"
@@ -70,7 +67,7 @@ export default async function Home() {
         subtitle="Intuitive technology, simply made. AI-powered voice chat, touch-based interruption, and dance moves that just work. Smart enough to surprise you, simple enough to live with."
         imageUrl="https://omo-oss-image1.thefastimg.com/portal-saas/pg2025030619402182217/cms/image/af8f52d2-ceee-405c-a562-ac6e9525f0a8.jpg?vf=B7gH3s"
         imageAlt="WL-F13 AI intelligent robot"
-        primaryCta={{ label: "Shop robots", href: `/products?category=${toys.slug}` }}
+        primaryCta={{ label: "Shop robots", href: "/products?category=robots" }}
         secondaryCta={{ label: "How it works", href: "/about" }}
         theme="light"
         layout="split"
@@ -83,7 +80,7 @@ export default async function Home() {
         subtitle="Cruising speed of approximately 35 km/h with one-button capsize recovery and a low-voltage alarm. Real hull geometry, solid construction, cool night-time LED lighting."
         imageUrl="https://omo-oss-image1.thefastimg.com/portal-saas/pg2025030619402182217/cms/image/8e23e381-5d2c-478a-b4de-4364b7f2b834.jpg?vf=B7gH3s"
         imageAlt="WL918 high-speed RC boat"
-        primaryCta={{ label: "Shop boats", href: `/products?category=${toys.slug}` }}
+        primaryCta={{ label: "Shop boats", href: "/products?category=power-boats" }}
         secondaryCta={{ label: "See the specs", href: "/about" }}
         theme="dark"
         layout="stack"
@@ -96,7 +93,7 @@ export default async function Home() {
         subtitle="EPP foam 3D/6G replica of the WWII Beech D17S biplane. Brushless motor, 6-axis gyroscope, easy launch, stable glide. Form follows function — and lasts."
         imageUrl="https://omo-oss-image1.thefastimg.com/portal-saas/pg2025030619402182217/cms/image/3f547d14-c9bb-49e3-ad58-a7b80061a8da.jpg?vf=B7gH3s"
         imageAlt="A310 EPP foam RC biplane"
-        primaryCta={{ label: "Shop planes", href: `/products?category=${toys.slug}` }}
+        primaryCta={{ label: "Shop planes", href: "/products?category=aeroplanes" }}
         secondaryCta={{ label: "Browse everything", href: "/products" }}
         theme="light"
         layout="split"

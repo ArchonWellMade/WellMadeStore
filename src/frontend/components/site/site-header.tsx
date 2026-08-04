@@ -4,8 +4,18 @@ import { getCategories } from "@/shared/data/categories";
 import { ScrollProgress } from "@/frontend/components/site/scroll-progress";
 import { ThemeToggle } from "@/frontend/components/site/theme-toggle";
 
+/** Shorter labels than the full category title, so the single-row nav doesn't wrap. */
+const NAV_LABELS: Record<string, string> = {
+  "high-speed-cars": "RC Cars",
+  aeroplanes: "Planes",
+  "power-boats": "Boats",
+  "engineering-vehicles": "Engineering",
+  "model-trains": "Trains",
+  "tech-essentials": "Tech",
+};
+
 export async function SiteHeader() {
-  const PRIMARY_NAV = (await getCategories()).slice(0, 7);
+  const PRIMARY_NAV = await getCategories();
   return (
     <header className="sticky top-0 z-40 bg-[rgba(14,14,16,0.78)] backdrop-blur-xl supports-[backdrop-filter]:bg-[rgba(14,14,16,0.68)]">
       <ScrollProgress />
@@ -45,9 +55,9 @@ export async function SiteHeader() {
             <Link
               key={nav.slug}
               href={`/products?category=${nav.slug}`}
-              className="flex h-11 items-center px-3 text-[12px] font-normal text-[#f5f5f7]/75 transition-colors hover:text-[#f5f5f7]"
+              className="flex h-11 items-center whitespace-nowrap px-2.5 text-[12px] font-normal text-[#f5f5f7]/75 transition-colors hover:text-[#f5f5f7]"
             >
-              {nav.title}
+              {NAV_LABELS[nav.slug] ?? nav.title}
             </Link>
           ))}
         </nav>
