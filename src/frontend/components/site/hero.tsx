@@ -5,10 +5,8 @@ import { HeroScene } from "@/frontend/components/site/hero-scene";
 import { MouseParallax } from "@/frontend/components/site/mouse-parallax";
 import { HeroScrollDriver } from "@/frontend/components/site/hero-scroll-driver";
 
-const HERO_POSTER =
-  "https://images.unsplash.com/photo-1579271723124-a758848c2753?w=2400&q=85&auto=format&fit=crop";
-const HERO_VIDEO =
-  "https://videos.pexels.com/video-files/29408199/12665098_1922_1080_30fps.mp4";
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1675301586777-2c56ee8aa5ef?w=2400&q=85&auto=format&fit=crop";
 
 export function Hero() {
   return (
@@ -17,19 +15,14 @@ export function Hero() {
       data-mouse-parallax-root
       className="hero-section relative isolate overflow-hidden bg-[color:var(--brand-graphite)] text-white"
     >
-      {/* Background — looping video with photo poster, scroll-zoom + mouse parallax */}
+      {/* Background — RC car image, scroll-zoom + mouse parallax */}
       <div aria-hidden className="absolute inset-0">
         <div data-depth="0.18" className="hero-bg-layer absolute inset-0">
-          <video
-            className="hero-video absolute inset-0 h-full w-full object-cover"
-            src={HERO_VIDEO}
-            poster={HERO_POSTER}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            disablePictureInPicture
+          {/* eslint-disable-next-line @next/next/no-img-element -- full-bleed parallax background, not a standard content image */}
+          <img
+            className="hero-bg-image absolute inset-0 h-full w-full object-cover"
+            src={HERO_IMAGE}
+            alt=""
           />
         </div>
         {/* Subtle bottom-anchored darkness so the headline reads cleanly */}

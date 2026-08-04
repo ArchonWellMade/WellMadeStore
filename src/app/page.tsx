@@ -7,14 +7,15 @@ import { StatStrip } from "@/frontend/components/site/stat-strip";
 import { Marquee } from "@/frontend/components/site/marquee";
 import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
 import { getCategories, getCategoryBySlug } from "@/shared/data/categories";
-import { getFeaturedProducts } from "@/shared/data/products";
+import { getProductsByCategory } from "@/shared/data/products";
 
 export default async function Home() {
-  const [featured, toys, categories] = await Promise.all([
-    getFeaturedProducts(4),
+  const [toysProducts, toys, categories] = await Promise.all([
+    getProductsByCategory("toys"),
     getCategoryBySlug("toys"),
     getCategories(),
   ]);
+  const featured = toysProducts.slice(0, 4);
 
   if (!toys) return null;
   const categoryTitleBySlug = new Map(categories.map((c) => [c.slug, c.title]));
@@ -38,68 +39,68 @@ export default async function Home() {
       <StatStrip />
 
       <FeatureSection
-        eyebrow="Premium Metal RC Cars"
-        title="Solid metal. Smooth lines."
-        subtitle="Authentic licensed replicas — Tesla, Porsche, Audi, classic sports cars — crafted with solid metal bodies and refined finishes. Designed for both display and play."
-        imageUrl="https://images.unsplash.com/photo-1675301586777-2c56ee8aa5ef?w=2400&q=85&auto=format&fit=crop"
-        imageAlt="Premium die-cast RC car on dirt road"
-        primaryCta={{ label: "Shop metal cars", href: `/products?category=${toys.slug}` }}
-        secondaryCta={{ label: "See licensed models", href: "/products" }}
+        eyebrow="WL-284019-A · Rally Car"
+        title="Solid build. Smooth lines."
+        subtitle="1:28 scale electric four-wheel-drive rally car with realistic simulated driving, independent suspension, and all-terrain rubber tires. Built for both display and play."
+        imageUrl="https://omo-oss-image1.thefastimg.com/portal-saas/pg2025030619402182217/cms/image/52b0e20e-a650-46e5-95fa-77e41a4ddbd9.jpg?vf=B7gH3s"
+        imageAlt="WL-284019-A 1:28 scale RC rally car"
+        primaryCta={{ label: "Shop RC cars", href: `/products?category=${toys.slug}` }}
+        secondaryCta={{ label: "See all models", href: "/products" }}
         theme="light"
         layout="stack"
-        scaleTag={{ scale: "1:64 / 1:43 SCALE", label: "Die-cast metal · Gyro RC" }}
+        scaleTag={{ scale: "1:28 SCALE", label: "4WD · Top speed 30 km/h" }}
       />
 
       <FeatureSection
-        eyebrow="Foldable Camera Drones"
-        title="Folds away. Flies anywhere."
-        subtitle="Compact innovation. Pocket-friendly frames in neutral colorways, one-key takeoff, stable hover, integrated HD optics. Built to capture, built to last."
-        imageUrl="https://images.unsplash.com/photo-1556537902-16b47f40c55c?w=2400&q=85&auto=format&fit=crop"
-        imageAlt="Foldable hobby drone"
-        primaryCta={{ label: "Shop drones", href: `/products?category=${toys.slug}` }}
+        eyebrow="K270 · Black Hawk UH-60L"
+        title="Takes off. Holds steady."
+        subtitle="Scale quadcopter helicopter with optical flow positioning and 6-axis gyroscope altitude hold. Brushless motor, stable hover, built to capture every flight."
+        imageUrl="https://omo-oss-image1.thefastimg.com/portal-saas/pg2025030619402182217/cms/image/358631b7-d97c-45d2-8fc4-c89ef00c419f.jpg?vf=B7gH3s"
+        imageAlt="K270 Black Hawk UH-60L scale RC helicopter"
+        primaryCta={{ label: "Shop helicopters", href: `/products?category=${toys.slug}` }}
         secondaryCta={{ label: "Compare models", href: "/products" }}
         theme="dark"
         layout="stack"
-        scaleTag={{ scale: "FOLDABLE", label: "HD optics · One-key launch" }}
+        scaleTag={{ scale: "OPTICAL FLOW", label: "Altitude hold · ~7 min flight" }}
       />
 
       <FeatureSection
-        eyebrow="Smart Gesture Robots"
-        title="Wave. It listens."
-        subtitle="Intuitive technology, simply made. Soft round shapes, smooth finishes, and gestures that just work. Smart enough to surprise you, simple enough to live with."
-        imageUrl="https://images.unsplash.com/photo-1535378620166-273708d44e4c?w=2000&q=85&auto=format&fit=crop"
-        imageAlt="Minimalist white smart robot"
+        eyebrow="WL-F13 · AI Robot"
+        title="Talk. It listens."
+        subtitle="Intuitive technology, simply made. AI-powered voice chat, touch-based interruption, and dance moves that just work. Smart enough to surprise you, simple enough to live with."
+        imageUrl="https://omo-oss-image1.thefastimg.com/portal-saas/pg2025030619402182217/cms/image/af8f52d2-ceee-405c-a562-ac6e9525f0a8.jpg?vf=B7gH3s"
+        imageAlt="WL-F13 AI intelligent robot"
         primaryCta={{ label: "Shop robots", href: `/products?category=${toys.slug}` }}
-        secondaryCta={{ label: "How they work", href: "/about" }}
+        secondaryCta={{ label: "How it works", href: "/about" }}
         theme="light"
         layout="split"
-        scaleTag={{ scale: "GESTURE CONTROL", label: "Voice + Vision · Obstacle aware" }}
+        scaleTag={{ scale: "AI VOICE CHAT", label: "Touch interrupt · Dance moves" }}
       />
 
       <FeatureSection
-        eyebrow="Minimalist RC Motorcycles"
-        title="Authentic. In miniature."
-        subtitle="Real bike geometry, reimagined at scale. Self-balancing technology, realistic proportions, solid construction. The look of a real bike, in the hand."
-        imageUrl="https://images.unsplash.com/photo-1609160089140-8da843632872?w=2400&q=85&auto=format&fit=crop"
-        imageAlt="Scale-model motorcycle on white surface"
-        primaryCta={{ label: "Shop motorcycles", href: `/products?category=${toys.slug}` }}
-        secondaryCta={{ label: "See the lean test", href: "/about" }}
+        eyebrow="WL918 · High-Speed Boat"
+        title="Fast. Steady. Built to last."
+        subtitle="Cruising speed of approximately 35 km/h with one-button capsize recovery and a low-voltage alarm. Real hull geometry, solid construction, cool night-time LED lighting."
+        imageUrl="https://omo-oss-image1.thefastimg.com/portal-saas/pg2025030619402182217/cms/image/8e23e381-5d2c-478a-b4de-4364b7f2b834.jpg?vf=B7gH3s"
+        imageAlt="WL918 high-speed RC boat"
+        primaryCta={{ label: "Shop boats", href: `/products?category=${toys.slug}` }}
+        secondaryCta={{ label: "See the specs", href: "/about" }}
         theme="dark"
         layout="stack"
-        scaleTag={{ scale: "1:5 SCALE", label: "Self-balancing · Authentic" }}
+        scaleTag={{ scale: "35 KM/H", label: "Auto-righting · 200m range" }}
       />
 
       <FeatureSection
-        eyebrow="Modern Gliders & Planes"
+        eyebrow="A310 · Biplane"
         title="Light. Long. Lasting."
-        subtitle="Designed by the principles of flight. Sleek delta wings, durable EPP foam, easy launch, stable cruise. Form follows function — and lasts."
-        imageUrl="https://images.unsplash.com/photo-1606370744289-16795bbded58?w=2000&q=85&auto=format&fit=crop"
-        imageAlt="Modern scale-model airplane on grass"
+        subtitle="EPP foam 3D/6G replica of the WWII Beech D17S biplane. Brushless motor, 6-axis gyroscope, easy launch, stable glide. Form follows function — and lasts."
+        imageUrl="https://omo-oss-image1.thefastimg.com/portal-saas/pg2025030619402182217/cms/image/3f547d14-c9bb-49e3-ad58-a7b80061a8da.jpg?vf=B7gH3s"
+        imageAlt="A310 EPP foam RC biplane"
         primaryCta={{ label: "Shop planes", href: `/products?category=${toys.slug}` }}
         secondaryCta={{ label: "Browse everything", href: "/products" }}
         theme="light"
         layout="split"
-        scaleTag={{ scale: "DELTA WING", label: "EPP Foam · Wind-resistant" }}
+        scaleTag={{ scale: "3D / 6G MODE", label: "EPP foam · Wind-resistant" }}
       />
 
       <Marquee

@@ -334,7 +334,7 @@
   --hero-scroll: 0;
 }
 
-.hero-video {
+.hero-bg-image {
   transform: translate3d(0, calc(var(--hero-scroll) * 40px), 0)
     scale(calc(1 + var(--hero-scroll) * 0.12));
   transform-origin: center;
@@ -375,7 +375,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-video,
+  .hero-bg-image,
   .hero-bg-layer,
   .hero-content-layer {
     transform: none !important;
