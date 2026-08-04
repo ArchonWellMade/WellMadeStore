@@ -10,7 +10,6 @@ const NAV_LABELS: Record<string, string> = {
   aeroplanes: "Planes",
   "power-boats": "Boats",
   "engineering-vehicles": "Engineering",
-  "model-trains": "Trains",
   "tech-essentials": "Tech",
 };
 

@@ -11,7 +11,6 @@ const footerCols = [
       { href: "/products?category=power-boats", label: "Power Boats" },
       { href: "/products?category=engineering-vehicles", label: "Engineering Vehicles" },
       { href: "/products?category=robots", label: "Robots" },
-      { href: "/products?category=model-trains", label: "Model Trains" },
       { href: "/products?category=handheld-gimbals", label: "Handheld Gimbals" },
       { href: "/products?category=tech-essentials", label: "Tech Essentials" },
     ],
