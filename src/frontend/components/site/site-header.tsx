@@ -86,7 +86,7 @@ export async function SiteHeader() {
                 <path d="M2 4 H14 M2 8 H14 M2 12 H14" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
               </svg>
             </summary>
-            <div className="fixed inset-x-0 top-11 z-50 bg-[rgba(14,14,16,0.98)] backdrop-blur-xl">
+            <div className="fixed inset-x-0 top-11 z-50 h-[calc(100dvh-2.75rem)] overflow-y-auto bg-[rgba(14,14,16,0.98)] backdrop-blur-xl">
               <nav className="mx-auto flex max-w-[1024px] flex-col gap-1 px-5 py-8">
                 {PRIMARY_NAV.map((nav) => (
                   <Link

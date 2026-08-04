@@ -9,6 +9,9 @@ const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 export function getSupabase() {
   return createClient(url, anonKey, {
     auth: { persistSession: false },
+    global: {
+      fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }),
+    },
   });
 }
 
