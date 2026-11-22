@@ -5,7 +5,7 @@ import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Well Made — premium RC vehicles, drones, and robots. Simple, intentional, timeless design. Solid materials. Designed to last.",
+    "RC Adventure — the ultimate RC experience. Dirt tracks, a working dig site, and premium RC machines to drive, race and own.",
 };
 
 export default function AboutPage() {
@@ -17,13 +17,14 @@ export default function AboutPage() {
             About
           </p>
           <h1 className="mt-4 font-display text-[40px] font-500 leading-[1.05] tracking-apple-mass text-balance sm:text-[56px] lg:text-[72px]">
-            Quietly made. Made to last.
+            Built for the thrill of the drive.
           </h1>
           <p className="mt-8 text-[17px] font-300 leading-relaxed text-muted-foreground sm:text-[18px]">
-            Well Made was built on a simple idea: there are too many cheap things
-            in the world. We wanted to make products you&apos;d actually be glad
-            to own — RC cars, drones, robots, planes — finished with the same care
-            you&apos;d put into a watch or a piece of furniture.
+            RC Adventure started with a simple idea: RC machines are better in
+            the dirt than on a shelf. So we built the tracks — a rally circuit,
+            a rock crawler trail, a drift pad and a full construction-zone dig
+            site — where anyone can grab the controls of an RC car, bulldozer or
+            excavator and just play.
           </p>
           <p className="mt-6 text-[17px] font-300 leading-relaxed text-muted-foreground sm:text-[18px]">
             Every piece in our collection follows the same five rules:{" "}
@@ -82,8 +83,8 @@ export default function AboutPage() {
         </ScrollReveal>
 
         <ScrollReveal delayMs={260} className="mt-16 flex flex-col gap-3 sm:mt-20 sm:flex-row sm:gap-4">
-          <Link href="/products" className="btn-apple-primary">
-            Shop the collection
+          <Link href="/tracks" className="btn-apple-primary">
+            Explore the tracks
           </Link>
           <Link href="/contact" className="btn-apple-secondary">
             Talk to us

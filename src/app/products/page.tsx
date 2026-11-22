@@ -8,7 +8,7 @@ import { getAllProducts, getProductsByCategory } from "@/shared/data/products";
 export const metadata: Metadata = {
   title: "Shop",
   description:
-    "The full Well Made collection — RC cars, helicopters, aeroplanes, power boats, engineering vehicles, robots, handheld gimbals, and tech essentials (power banks, cables). RCM certified for Australia.",
+    "The full RC Adventure shop — RC cars, helicopters, aeroplanes, power boats, engineering vehicles, robots, handheld gimbals, and tech essentials (power banks, cables). RCM certified for Australia.",
 };
 
 type SearchParams = { category?: string };

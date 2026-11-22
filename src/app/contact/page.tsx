@@ -3,7 +3,7 @@ import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with the Well Made team.",
+  description: "Book a session or get in touch with the RC Adventure team.",
 };
 
 export default function ContactPage() {
@@ -15,12 +15,12 @@ export default function ContactPage() {
             Contact
           </p>
           <h1 className="mt-4 font-display text-[40px] font-500 leading-[1.05] tracking-apple-mass text-balance sm:text-[56px] lg:text-[72px]">
-            Talk to us.
+            Book a session.
           </h1>
           <p className="mt-8 text-[17px] font-300 leading-relaxed text-muted-foreground sm:text-[18px]">
-            Product questions, gift advice, warranty, returns — every message is
-            read by a person and answered within a business day. No tickets, no
-            scripts, no chatbots.
+            Track sessions, birthday parties, group bookings, or questions about
+            the machines in our shop — tell us how many drivers and when, and a
+            real person will get back to you within a business day.
           </p>
         </ScrollReveal>
 

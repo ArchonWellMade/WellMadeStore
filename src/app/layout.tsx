@@ -11,11 +11,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Well Made — Premium RC cars, drones & more",
-    template: "%s | Well Made",
+    default: "RC Adventure — The Ultimate RC Experience",
+    template: "%s | RC Adventure",
   },
   description:
-    "Premium RC vehicles, drones, robots and more — designed to last. Solid materials, expert craftsmanship, RCM certified for Australia.",
+    "Drive RC rally cars, rock crawlers, bulldozers and excavators on purpose-built dirt tracks. Book a session, throw a party, and take your favourite machine home.",
 };
 
 export const viewport: Viewport = {

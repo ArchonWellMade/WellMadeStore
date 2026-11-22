@@ -10,10 +10,10 @@ type Stat = {
 };
 
 const stats: Stat[] = [
-  { to: 60, suffix: "+ min", label: "Drone flight time" },
-  { to: 43, prefix: "1:", label: "Die-cast scale" },
-  { to: 30, suffix: " day", label: "No-questions returns" },
-  { to: 100, suffix: "%", label: "RCM certified · AU" },
+  { to: 4, label: "Tracks to conquer" },
+  { to: 30, suffix: "+", label: "Machines in the fleet" },
+  { to: 5, suffix: "+", label: "Years old & up" },
+  { to: 100, suffix: "%", label: "Dirt guaranteed" },
 ];
 
 export function StatStrip() {
@@ -29,7 +29,7 @@ export function StatStrip() {
         <ScrollReveal className="text-center">
           <p className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-forest)]">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--brand-gold)] [animation:glowPulse_1.6s_ease-in-out_infinite]" />
-            Spec at a glance
+            RC Adventure at a glance
           </p>
         </ScrollReveal>
         <div className="mt-12 grid grid-cols-2 divide-x divide-border/60 lg:grid-cols-4">

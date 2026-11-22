@@ -9,7 +9,7 @@ export default async function AdminLoginPage({
     <section className="flex min-h-[70vh] items-center justify-center bg-background px-5">
       <div className="w-full max-w-sm">
         <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-forest)]">
-          Well Made
+          RC Adventure
         </p>
         <h1 className="mt-3 font-display text-[32px] font-500 tracking-apple-tight">
           Admin sign in

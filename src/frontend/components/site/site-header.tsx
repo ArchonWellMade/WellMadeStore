@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ShoppingBag, Search } from "lucide-react";
 import { getCategories } from "@/shared/data/categories";
@@ -21,28 +22,22 @@ export async function SiteHeader() {
       <div className="mx-auto flex h-11 max-w-[1024px] items-center justify-between px-5 text-[#f5f5f7]">
         <Link
           href="/"
-          aria-label="WellMade — home"
-          className="inline-flex h-11 items-center gap-2 text-[#f5f5f7] transition-opacity hover:opacity-90"
+          aria-label="RC Adventure — home"
+          className="inline-flex h-11 shrink-0 items-center gap-2 text-[#f5f5f7] transition-opacity hover:opacity-90"
         >
-          <svg viewBox="0 0 305 188" fill="none" aria-hidden className="h-5 w-auto">
-            <polygon
-              fill="var(--brand-forest, #1F5E4B)"
-              points="151.9,141 140.83,124 126.52,102 116.75,87 60.13,0 0,0 56.62,87 66.38,102 80.71,124 91.78,141 122.21,187.77 147.7,148.58 152.27,141.57"
-            />
-            <polygon
-              fill="var(--brand-forest, #1F5E4B)"
-              points="238.63,87 217.95,55.24 213.2,47.94 182.01,0 121.3,0 177.92,87 182.85,94.57 187.61,101.87 187.69,102 187.53,102 173.2,124 162.14,141 157.02,148.87 152.45,155.88 173.2,187.77 177.77,180.75 203.64,141 208.35,133.75 214.7,124 219.38,116.81 229.03,102 238.7,87.12"
-            />
-            <polygon
-              fill="var(--brand-gold, #E9A820)"
-              points="248.29,87 243.45,94.42 238.53,102 224.2,124 224.13,124.11 235.12,141 265.7,188 304.45,188 304.45,0.69"
-            />
-          </svg>
-          <span className="text-[10.5px] font-extrabold uppercase tracking-[0.28em]">
-            <span className="text-[color:var(--brand-forest,#1F5E4B)]">Well</span>
+          <Image
+            src="/brand/rc-adventure-logo.png"
+            alt=""
+            width={2172}
+            height={724}
+            priority
+            sizes="120px"
+            className="h-9 w-auto"
+          />
+          <span className="hidden text-[11px] font-extrabold uppercase tracking-[0.22em] sm:inline">
+            <span className="text-[color:var(--brand-forest-light,#2A7A63)]">RC</span>
             <span>&nbsp;</span>
-            <span className="text-[color:var(--brand-gold,#E9A820)]">Made</span>
-            <span className="text-[#f5f5f7]/65">&nbsp;Store</span>
+            <span className="text-[color:var(--brand-gold,#E9A820)]">Adventure</span>
           </span>
         </Link>
 
@@ -50,6 +45,12 @@ export async function SiteHeader() {
           aria-label="Primary"
           className="hidden flex-1 items-center justify-center gap-0.5 lg:flex"
         >
+          <Link
+            href="/tracks"
+            className="flex h-11 items-center whitespace-nowrap px-2.5 text-[12px] font-semibold text-[color:var(--brand-gold)] transition-colors hover:text-[#f5f5f7]"
+          >
+            Tracks
+          </Link>
           {PRIMARY_NAV.map((nav) => (
             <Link
               key={nav.slug}
@@ -62,6 +63,12 @@ export async function SiteHeader() {
         </nav>
 
         <div className="flex h-11 items-center gap-0.5">
+          <Link
+            href="/contact"
+            className="mr-1 hidden h-7 items-center rounded-full bg-[color:var(--brand-gold)] px-3.5 text-[11px] font-bold uppercase tracking-[0.08em] text-[#0E0E10] transition-transform hover:scale-[1.04] sm:inline-flex"
+          >
+            Book
+          </Link>
           <ThemeToggle />
           <Link
             href="/products"
@@ -88,6 +95,18 @@ export async function SiteHeader() {
             </summary>
             <div className="fixed inset-x-0 top-11 z-50 h-[calc(100dvh-2.75rem)] overflow-y-auto bg-[rgba(14,14,16,0.98)] backdrop-blur-xl">
               <nav className="mx-auto flex max-w-[1024px] flex-col gap-1 px-5 py-8">
+                <Link
+                  href="/tracks"
+                  className="font-display text-2xl font-600 tracking-apple-tight text-[color:var(--brand-gold)]"
+                >
+                  Tracks
+                </Link>
+                <Link
+                  href="/contact"
+                  className="mb-4 font-display text-2xl font-600 tracking-apple-tight text-[color:var(--brand-gold)]"
+                >
+                  Book a session
+                </Link>
                 {PRIMARY_NAV.map((nav) => (
                   <Link
                     key={nav.slug}
