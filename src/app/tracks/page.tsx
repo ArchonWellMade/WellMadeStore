@@ -34,7 +34,7 @@ export default function TracksPage() {
   return (
     <>
       <section className="bg-[#0a0a0c] text-white">
-        <div className="mx-auto max-w-[1280px] px-4 py-20 text-center sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-[1280px] px-4 pb-20 pt-40 text-center sm:px-6 sm:pb-28 sm:pt-52">
           <ScrollReveal>
             <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-gold)]">
               RC Adventure · Tracks

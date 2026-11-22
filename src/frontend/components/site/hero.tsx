@@ -30,7 +30,7 @@ export function Hero() {
         <div className="absolute -right-20 bottom-0 h-[480px] w-[640px] rounded-full bg-[radial-gradient(circle,rgba(42,122,99,0.22),transparent_65%)] blur-2xl" />
       </div>
 
-      <div className="relative mx-auto flex max-w-[1280px] items-center px-4 pb-20 pt-20 sm:px-6 lg:min-h-[clamp(560px,calc(100svh-7rem-148px),760px)] lg:pb-24 lg:pt-24">
+      <div className="relative mx-auto flex max-w-[1280px] items-center px-4 pb-20 pt-40 sm:px-6 lg:min-h-[clamp(680px,calc(100svh-148px),880px)] lg:pb-24 lg:pt-48">
         <div className="max-w-[720px]">
           <ScrollReveal>
             <p className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-white/60">

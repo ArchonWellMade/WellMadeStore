@@ -4,6 +4,7 @@ import { ShoppingBag } from "lucide-react";
 import { getCategories } from "@/shared/data/categories";
 import { ScrollProgress } from "@/frontend/components/site/scroll-progress";
 import { ThemeToggle } from "@/frontend/components/site/theme-toggle";
+import { HeaderShell } from "@/frontend/components/site/header-shell";
 
 const PRIMARY = [
   { href: "/tracks", label: "Tracks" },
@@ -16,7 +17,7 @@ const PRIMARY = [
 export async function SiteHeader() {
   const categories = await getCategories();
   return (
-    <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-[rgba(10,10,12,0.82)] backdrop-blur-xl supports-[backdrop-filter]:bg-[rgba(10,10,12,0.7)]">
+    <HeaderShell>
       <ScrollProgress />
       <div className="mx-auto grid h-20 max-w-[1400px] grid-cols-[auto_1fr_auto] items-center gap-8 px-4 text-[#f5f5f7] sm:px-6 lg:h-28">
         <Link
@@ -113,6 +114,6 @@ export async function SiteHeader() {
           </details>
         </div>
       </div>
-    </header>
+    </HeaderShell>
   );
 }
