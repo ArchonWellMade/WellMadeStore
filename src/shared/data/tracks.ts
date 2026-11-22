@@ -1,7 +1,4 @@
-/**
- * RC Adventure play zones. Static content — each track pulls its photo from
- * the first product in `imageCategory` so the imagery stays real.
- */
+/** RC Adventure play zones. Each card draws its own line-art map (see track-card.tsx). */
 export type Track = {
   slug: string;
   name: string;
@@ -9,10 +6,6 @@ export type Track = {
   description: string;
   machines: string[];
   features: string[];
-  /** Product category whose first product image illustrates this track. */
-  imageCategory: string;
-  /** Which product in that category to use (keeps two tracks from sharing a photo). */
-  imageIndex: number;
 };
 
 export const TRACKS: Track[] = [
@@ -24,8 +17,6 @@ export const TRACKS: Track[] = [
       "A looping off-road circuit cut into packed dirt with banked corners, tabletop jumps and a timed lap board. Race your mates or chase your own best lap.",
     machines: ["Rally cars", "Buggies", "Monster trucks"],
     features: ["Tabletop jumps", "Banked berms", "Lap timing"],
-    imageCategory: "high-speed-cars",
-    imageIndex: 0,
   },
   {
     slug: "dig-site",
@@ -35,8 +26,6 @@ export const TRACKS: Track[] = [
       "A construction zone sandpit where you run RC excavators, bulldozers, wheel loaders and dump trucks. Dig trenches, push piles, load up and haul it across the site.",
     machines: ["Excavators", "Bulldozers", "Wheel loaders", "Dump trucks"],
     features: ["Deep sandpit", "Loading ramps", "Haul road"],
-    imageCategory: "engineering-vehicles",
-    imageIndex: 0,
   },
   {
     slug: "rock-crawler-trail",
@@ -46,8 +35,6 @@ export const TRACKS: Track[] = [
       "A mountain-style trail of boulders, logs, steep climbs and a creek crossing. Pick your line, feather the throttle and see if you can clear it without a tow.",
     machines: ["Crawlers", "4x4 trucks"],
     features: ["Boulder field", "Log steps", "Creek crossing"],
-    imageCategory: "high-speed-cars",
-    imageIndex: 1,
   },
   {
     slug: "drift-pad",
@@ -57,8 +44,6 @@ export const TRACKS: Track[] = [
       "A polished indoor pad with a figure-eight layout built for mini drift cars. Learn to hold a slide, link the corners and tandem with a friend.",
     machines: ["Mini drift cars"],
     features: ["Figure-eight layout", "Indoor surface", "Tandem lanes"],
-    imageCategory: "high-speed-cars",
-    imageIndex: 2,
   },
 ];
 

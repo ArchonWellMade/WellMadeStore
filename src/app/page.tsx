@@ -1,150 +1,295 @@
 import Link from "next/link";
 import { Hero } from "@/frontend/components/site/hero";
-import { FeatureSection } from "@/frontend/components/site/feature-section";
 import { ProductCard } from "@/frontend/components/site/product-card";
-import { StatStrip } from "@/frontend/components/site/stat-strip";
-import { Marquee } from "@/frontend/components/site/marquee";
 import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
-import { TrackCard, getTrackImages } from "@/frontend/components/site/track-card";
+import { CountUp } from "@/frontend/components/site/count-up";
+import { LogoArt } from "@/frontend/components/site/logo-art";
+import { TrackCard } from "@/frontend/components/site/track-card";
 import { getCategories } from "@/shared/data/categories";
 import { getProductsByCategory } from "@/shared/data/products";
 import { HOW_IT_WORKS, TRACKS } from "@/shared/data/tracks";
 
+const STATS = [
+  { to: 4, suffix: "", label: "Purpose-built tracks" },
+  { to: 30, suffix: "+", label: "Machines in the fleet" },
+  { to: 5, suffix: "+", label: "Ages welcome" },
+];
+
+const PACKAGES = [
+  {
+    name: "Drive Session",
+    blurb: "Walk in, pick a machine, run every track.",
+    points: ["All four tracks", "Swap machines as you go", "Crew on hand to help"],
+  },
+  {
+    name: "Birthday Party",
+    blurb: "The tracks to yourselves, with a crew running the show.",
+    points: ["Private track time", "Race-day lap timing", "Party area for cake"],
+    featured: true,
+  },
+  {
+    name: "Groups & Teams",
+    blurb: "School groups, team days and RC clubs.",
+    points: ["Dig Site challenges", "Head-to-head racing", "Flexible group sizes"],
+  },
+];
+
+function Eyebrow({ children, tone = "gold" }: { children: React.ReactNode; tone?: "gold" | "forest" }) {
+  return (
+    <p
+      className={`inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] ${
+        tone === "gold" ? "text-[color:var(--brand-gold)]" : "text-[color:var(--brand-forest)]"
+      }`}
+    >
+      <span className="h-px w-8 bg-current opacity-70" />
+      {children}
+    </p>
+  );
+}
+
 export default async function Home() {
-  const [carsProducts, digProducts, categories, trackImages] = await Promise.all([
+  const [carsProducts, digProducts, categories] = await Promise.all([
     getProductsByCategory("high-speed-cars"),
     getProductsByCategory("engineering-vehicles").catch(() => []),
     getCategories(),
-    getTrackImages(),
   ]);
   const featured = [...digProducts.slice(0, 2), ...carsProducts.slice(0, 2)];
   const categoryTitleBySlug = new Map(categories.map((c) => [c.slug, c.title]));
-  const digImage = digProducts[0]?.image_url ?? trackImages["dig-site"];
 
   return (
-    <>
+    <div className="bg-[#0a0a0c] text-white">
       <Hero />
 
-      <Marquee
-        tone="ignition"
-        items={[
-          "Dirt Rally Circuit",
-          "The Dig Site",
-          "Rock Crawler Trail",
-          "Drift Pad",
-          "RC Excavators",
-          "RC Bulldozers",
-          "Monster Trucks",
-          "Birthday Parties",
-        ]}
-      />
-
-      {/* Tracks */}
-      <section className="bg-background">
+      {/* ── Tracks ─────────────────────────────────────────── */}
+      <section className="relative">
         <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
-          <ScrollReveal className="text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-forest)]">
-              The tracks
-            </p>
-            <h2 className="mx-auto mt-5 max-w-[16ch] font-display text-[40px] font-600 leading-[0.95] tracking-apple-mass text-balance sm:text-[64px] lg:text-[80px]">
-              Four zones. Zero boring.
-            </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-balance text-base font-300 tracking-apple-tight text-muted-foreground">
-              From high-speed dirt laps to slow-and-steady digging, every track is
-              built for a different kind of machine — and a different kind of fun.
-            </p>
-          </ScrollReveal>
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
-            {TRACKS.map((t, i) => (
-              <ScrollReveal key={t.slug} delayMs={(i % 2) * 100}>
-                <TrackCard track={t} imageUrl={trackImages[t.slug]} index={i} />
-              </ScrollReveal>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <Link href="/tracks" className="btn-apple-secondary">
-              Track details &amp; sessions
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <StatStrip />
-
-      {digImage ? (
-        <FeatureSection
-          eyebrow="The Dig Site"
-          title="Dig it. Push it. Haul it."
-          subtitle="Take the controls of RC excavators, bulldozers and wheel loaders in a full construction-zone sandpit. Dig trenches, build ramps and load up the dump trucks — just like the real thing."
-          imageUrl={digImage}
-          imageAlt="RC excavator working in the Dig Site sandpit"
-          primaryCta={{ label: "Book the Dig Site", href: "/contact" }}
-          secondaryCta={{ label: "See all tracks", href: "/tracks" }}
-          theme="dark"
-          layout="split"
-          scaleTag={{ scale: "CONSTRUCTION ZONE", label: "Excavators · Dozers · Loaders" }}
-        />
-      ) : null}
-
-      <FeatureSection
-        eyebrow="Dirt Rally Circuit"
-        title="Full throttle. Full send."
-        subtitle="Banked berms, tabletop jumps and a timed lap board. Grab a 4WD rally car or buggy and see who owns the fastest lap of the day."
-        imageUrl="https://omo-oss-image1.thefastimg.com/portal-saas/pg2025030619402182217/cms/image/52b0e20e-a650-46e5-95fa-77e41a4ddbd9.jpg?vf=B7gH3s"
-        imageAlt="RC rally car racing on the dirt circuit"
-        primaryCta={{ label: "Book a race session", href: "/contact" }}
-        secondaryCta={{ label: "Track details", href: "/tracks#dirt-rally-circuit" }}
-        theme="light"
-        layout="stack"
-        scaleTag={{ scale: "4WD RALLY", label: "Jumps · Berms · Lap timing" }}
-      />
-
-      {/* How it works */}
-      <section className="relative overflow-hidden bg-[color:var(--brand-graphite)] text-white">
-        <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
-          <ScrollReveal className="text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-gold)]">
-              How it works
-            </p>
-            <h2 className="mx-auto mt-5 max-w-[18ch] font-display text-[40px] font-600 leading-[0.95] tracking-apple-mass text-balance sm:text-[64px]">
-              Drive it. Race it. Own it.
-            </h2>
-          </ScrollReveal>
-          <div className="mt-14 grid gap-6 sm:grid-cols-3">
-            {HOW_IT_WORKS.map((s, i) => (
-              <ScrollReveal
-                key={s.step}
-                delayMs={i * 120}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-7"
-              >
-                <p className="font-display text-5xl font-700 text-[color:var(--brand-gold)]">{s.step}</p>
-                <h3 className="mt-4 text-[20px] font-semibold tracking-apple-tight">{s.title}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-white/70">{s.body}</p>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {featured.length > 0 ? (
-        <section className="bg-background">
-          <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
-            <ScrollReveal className="text-center">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-forest)]">
-                Own it
-              </p>
-              <h2 className="mx-auto mt-5 max-w-[16ch] font-display text-[40px] font-600 leading-[0.95] tracking-apple-mass text-balance sm:text-[64px] lg:text-[80px]">
-                Loved it? Take it home.
+          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+            <ScrollReveal className="max-w-2xl">
+              <Eyebrow>The tracks</Eyebrow>
+              <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[64px]">
+                Four zones. <span className="text-white/40">One session.</span>
               </h2>
-              <p className="mx-auto mt-6 max-w-2xl text-balance text-base font-300 tracking-apple-tight text-muted-foreground">
-                The machines on our tracks are available in our shop — so the
-                adventure doesn&apos;t have to end when your session does.
+            </ScrollReveal>
+            <ScrollReveal delayMs={120} className="max-w-sm">
+              <p className="text-[16px] font-300 leading-relaxed text-white/60">
+                Every track is built for a different machine and a different
+                kind of fun — and your session covers all of them.
               </p>
             </ScrollReveal>
-            <div className="mt-16 grid gap-y-16 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4">
+          </div>
+          <div className="mt-14 grid gap-5 md:grid-cols-2">
+            {TRACKS.map((t, i) => (
+              <ScrollReveal key={t.slug} delayMs={(i % 2) * 100} className="h-full">
+                <TrackCard track={t} index={i} href={`/tracks#${t.slug}`} />
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Dig Site spotlight ─────────────────────────────── */}
+      <section className="relative overflow-hidden border-y border-white/[0.06] bg-[linear-gradient(180deg,#0f1012_0%,#0a0a0c_100%)]">
+        <div aria-hidden className="absolute right-0 top-1/2 h-[600px] w-[800px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(233,168,32,0.12),transparent_60%)] blur-2xl" />
+        <div className="relative mx-auto grid max-w-[1280px] items-center gap-14 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2">
+          <ScrollReveal>
+            <Eyebrow>Track 02 · The Dig Site</Eyebrow>
+            <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[60px]">
+              Real dirt. <br className="hidden sm:block" />
+              <span className="italic text-[color:var(--brand-gold)]">Your</span> controls.
+            </h2>
+            <p className="mt-6 max-w-lg text-[17px] font-300 leading-relaxed text-white/65">
+              Take the levers of an RC excavator, push a pile with a bulldozer and
+              load up the dump trucks in a full construction-zone sandpit. It&apos;s
+              the closest thing to running a real worksite.
+            </p>
+            <dl className="mt-10 grid max-w-lg grid-cols-3 gap-6 border-t border-white/[0.08] pt-8">
+              {[
+                ["Excavators", "Dig & load"],
+                ["Bulldozers", "Push & level"],
+                ["Dump trucks", "Haul it away"],
+              ].map(([k, v]) => (
+                <div key={k}>
+                  <dt className="font-display text-[19px] font-500">{k}</dt>
+                  <dd className="mt-1 text-[13px] text-white/50">{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <Link
+              href="/contact"
+              className="mt-10 inline-flex h-12 items-center gap-2 rounded-full bg-white px-7 text-[14px] font-semibold text-[#0E0E10] transition-colors hover:bg-[color:var(--brand-gold)]"
+            >
+              Book the Dig Site <span aria-hidden>→</span>
+            </Link>
+          </ScrollReveal>
+          <ScrollReveal delayMs={150}>
+            <LogoArt
+              crop="machines"
+              label="RC excavator and bulldozer at work in the dirt"
+              className="w-full drop-shadow-[0_40px_60px_rgba(0,0,0,0.6)]"
+            />
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Stats ──────────────────────────────────────────── */}
+      <section>
+        <div className="mx-auto grid max-w-[1280px] grid-cols-3 divide-x divide-white/[0.08] px-4 py-20 sm:px-6">
+          {STATS.map((s, i) => (
+            <ScrollReveal key={s.label} delayMs={i * 100} className="px-2 text-center sm:px-6">
+              <p className="font-display text-[44px] font-500 tabular-nums tracking-apple-mass sm:text-[72px]">
+                <CountUp to={s.to} suffix={s.suffix} />
+              </p>
+              <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-white/50 sm:text-[12px]">
+                {s.label}
+              </p>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Rally spotlight ────────────────────────────────── */}
+      <section className="relative overflow-hidden border-y border-white/[0.06] bg-[linear-gradient(180deg,#0a0a0c_0%,#0d1210_100%)]">
+        <div aria-hidden className="absolute left-0 top-1/2 h-[600px] w-[800px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(42,122,99,0.25),transparent_60%)] blur-2xl" />
+        <div className="relative mx-auto grid max-w-[1280px] items-center gap-14 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2">
+          <ScrollReveal delayMs={150} className="order-last lg:order-first">
+            <LogoArt
+              crop="buggy"
+              label="RC rally buggy tearing through the dirt"
+              className="mx-auto w-full max-w-[560px] drop-shadow-[0_40px_60px_rgba(0,0,0,0.6)]"
+            />
+          </ScrollReveal>
+          <ScrollReveal>
+            <Eyebrow>Track 01 · Dirt Rally Circuit</Eyebrow>
+            <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[60px]">
+              Full throttle. <br className="hidden sm:block" />
+              <span className="italic text-[color:var(--brand-gold)]">Full</span> send.
+            </h2>
+            <p className="mt-6 max-w-lg text-[17px] font-300 leading-relaxed text-white/65">
+              Banked berms, tabletop jumps and a timed lap board. Grab a 4WD rally
+              car or buggy and find out who owns the fastest lap of the day.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-7 text-[14px] font-semibold text-[#0E0E10] transition-colors hover:bg-[color:var(--brand-gold)]"
+              >
+                Book a race <span aria-hidden>→</span>
+              </Link>
+              <Link
+                href="/tracks#dirt-rally-circuit"
+                className="inline-flex h-12 items-center rounded-full border border-white/20 px-7 text-[14px] font-semibold text-white transition-colors hover:border-white/50"
+              >
+                Track details
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── How it works ───────────────────────────────────── */}
+      <section>
+        <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
+          <ScrollReveal className="text-center">
+            <Eyebrow>How it works</Eyebrow>
+            <h2 className="mx-auto mt-6 max-w-[18ch] font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[64px]">
+              Drive it. Race it. <span className="italic text-[color:var(--brand-gold)]">Own it.</span>
+            </h2>
+          </ScrollReveal>
+          <ol className="relative mt-16 grid gap-10 sm:grid-cols-3 sm:gap-8">
+            <div aria-hidden className="absolute left-0 right-0 top-[27px] hidden h-px bg-gradient-to-r from-transparent via-white/15 to-transparent sm:block" />
+            {HOW_IT_WORKS.map((s, i) => (
+              <ScrollReveal key={s.step} delayMs={i * 120} className="relative text-center">
+                <li className="list-none">
+                  <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-[color:var(--brand-gold)]/50 bg-[#0a0a0c] font-display text-[18px] text-[color:var(--brand-gold)]">
+                    {s.step}
+                  </span>
+                  <h3 className="mt-6 font-display text-[24px] font-500">{s.title}</h3>
+                  <p className="mx-auto mt-3 max-w-[30ch] text-[15px] leading-relaxed text-white/55">{s.body}</p>
+                </li>
+              </ScrollReveal>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* ── Packages ───────────────────────────────────────── */}
+      <section className="border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
+          <ScrollReveal className="max-w-2xl">
+            <Eyebrow>Sessions &amp; parties</Eyebrow>
+            <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[64px]">
+              Bring the crew.
+            </h2>
+          </ScrollReveal>
+          <div className="mt-14 grid gap-5 lg:grid-cols-3">
+            {PACKAGES.map((p, i) => (
+              <ScrollReveal key={p.name} delayMs={i * 100} className="h-full">
+                <div
+                  className={`flex h-full flex-col rounded-[28px] border p-8 ${
+                    p.featured
+                      ? "border-[color:var(--brand-gold)]/50 bg-[linear-gradient(160deg,rgba(233,168,32,0.14),rgba(233,168,32,0.02)_60%)]"
+                      : "border-white/[0.08] bg-white/[0.02]"
+                  }`}
+                >
+                  {p.featured ? (
+                    <span className="mb-5 w-fit rounded-full bg-[color:var(--brand-gold)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#0E0E10]">
+                      Most popular
+                    </span>
+                  ) : null}
+                  <h3 className="font-display text-[28px] font-500">{p.name}</h3>
+                  <p className="mt-2 text-[15px] text-white/60">{p.blurb}</p>
+                  <ul className="mt-8 space-y-3 border-t border-white/[0.08] pt-8 text-[14px] text-white/80">
+                    {p.points.map((pt) => (
+                      <li key={pt} className="flex items-center gap-3">
+                        <span aria-hidden className="text-[color:var(--brand-gold)]">✓</span>
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-auto pt-10">
+                    <Link
+                      href="/contact"
+                      className={`inline-flex h-12 w-full items-center justify-center rounded-full text-[14px] font-semibold transition-colors ${
+                        p.featured
+                          ? "bg-[color:var(--brand-gold)] text-[#0E0E10] hover:bg-[color:var(--brand-gold-light)]"
+                          : "border border-white/20 text-white hover:border-white/50"
+                      }`}
+                    >
+                      Enquire
+                    </Link>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Shop ───────────────────────────────────────────── */}
+      {featured.length > 0 ? (
+        <section className="bg-background text-foreground">
+          <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
+            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <ScrollReveal>
+                <Eyebrow tone="forest">Own it</Eyebrow>
+                <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass sm:text-[64px]">
+                  Take one home.
+                </h2>
+                <p className="mt-4 max-w-md text-[16px] font-300 text-muted-foreground">
+                  Every machine on our tracks is available in the shop.
+                </p>
+              </ScrollReveal>
+              <Link
+                href="/products"
+                className="inline-flex h-12 w-fit items-center gap-2 rounded-full border border-border px-7 text-[14px] font-semibold transition-colors hover:border-foreground"
+              >
+                Shop all machines <span aria-hidden>→</span>
+              </Link>
+            </div>
+            <div className="mt-14 grid gap-y-14 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-4">
               {featured.map((p) => (
                 <ProductCard
-                  key={p.slug}
+                  key={`${p.category_slug}-${p.slug}`}
                   slug={p.slug}
                   name={p.name}
                   shortDescription={p.short_description}
@@ -154,56 +299,37 @@ export default async function Home() {
                 />
               ))}
             </div>
-            <div className="mt-14 text-center">
-              <Link href="/products" className="btn-apple-secondary">
-                Shop all machines
-              </Link>
-            </div>
           </div>
         </section>
       ) : null}
 
-      <Marquee
-        tone="graphite"
-        items={[
-          "Drive It",
-          "Race It",
-          "Own It",
-          "The Ultimate RC Experience",
-          "Birthday Parties",
-          "Group Bookings",
-          "Bring Your Own RC",
-          "All Ages",
-        ]}
-      />
-
-      <section className="relative overflow-hidden bg-[color:var(--brand-graphite)] text-white">
-        <div aria-hidden className="particle-field">
-          <span /><span /><span /><span /><span /><span /><span /><span />
-        </div>
-        <div aria-hidden className="light-sweep" />
-        <div className="relative mx-auto max-w-[1280px] px-4 py-28 text-center sm:px-6 sm:py-36">
+      {/* ── Final CTA ──────────────────────────────────────── */}
+      <section className="relative overflow-hidden">
+        <LogoArt
+          crop="mountains"
+          soft={false}
+          className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto w-full max-w-[1400px] opacity-25 [mask-image:linear-gradient(to_top,black_30%,transparent)]"
+        />
+        <div aria-hidden className="absolute left-1/2 top-0 h-[400px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(233,168,32,0.16),transparent_60%)] blur-2xl" />
+        <div className="relative mx-auto max-w-[1280px] px-4 py-32 text-center sm:px-6 sm:py-44">
           <ScrollReveal>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-gold)]">
-              Parties · Groups · Weekends
-            </p>
-            <h2 className="mx-auto mt-5 max-w-[14ch] font-display text-[40px] font-600 leading-[0.95] tracking-apple-mass text-balance sm:text-[64px] lg:text-[88px]">
-              Ready to get dirty?
+            <Eyebrow>Ready when you are</Eyebrow>
+            <h2 className="mx-auto mt-6 max-w-[14ch] font-display text-[48px] font-500 leading-[0.98] tracking-apple-mass text-balance sm:text-[80px]">
+              Ready to get <span className="italic text-[color:var(--brand-gold)]">dirty?</span>
             </h2>
-            <p className="mx-auto mt-7 max-w-xl text-balance text-base font-300 leading-relaxed text-white/75 sm:text-lg">
-              Book a session for yourself, the kids, or the whole crew. Birthday
-              parties and group bookings get the tracks to themselves.
+            <p className="mx-auto mt-6 max-w-lg text-[17px] font-300 leading-relaxed text-white/65">
+              Book a session for yourself, the kids or the whole crew.
             </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+            <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[color:var(--brand-gold)] px-8 text-[15px] font-bold uppercase tracking-[0.08em] text-[#0E0E10] transition-transform hover:scale-[1.03] sm:w-auto"
+                className="inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[color:var(--brand-gold)] px-8 py-4 text-[15px] font-semibold text-[#0E0E10] shadow-[0_10px_40px_-8px_rgba(233,168,32,0.55)] transition-colors hover:bg-[color:var(--brand-gold-light)]"
               >
-                Book a session
+                Book a session <span aria-hidden>→</span>
               </Link>
               <Link
                 href="/tracks"
-                className="inline-flex h-12 w-full items-center justify-center rounded-full border border-white/40 px-8 text-[15px] font-semibold text-white transition-colors hover:border-[color:var(--brand-gold)] hover:text-[color:var(--brand-gold)] sm:w-auto"
+                className="inline-flex h-13 items-center justify-center rounded-full border border-white/20 px-8 py-4 text-[15px] font-semibold text-white transition-colors hover:border-white/50"
               >
                 Explore the tracks
               </Link>
@@ -211,6 +337,6 @@ export default async function Home() {
           </ScrollReveal>
         </div>
       </section>
-    </>
+    </div>
   );
 }

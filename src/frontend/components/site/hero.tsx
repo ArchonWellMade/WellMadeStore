@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
-import { HeroScene } from "@/frontend/components/site/hero-scene";
 import { MouseParallax } from "@/frontend/components/site/mouse-parallax";
 import { HeroScrollDriver } from "@/frontend/components/site/hero-scroll-driver";
+import { TRACKS } from "@/shared/data/tracks";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1675301586777-2c56ee8aa5ef?w=2400&q=85&auto=format&fit=crop";
@@ -13,84 +13,94 @@ export function Hero() {
     <section
       data-hero
       data-mouse-parallax-root
-      className="hero-section relative isolate overflow-hidden bg-[color:var(--brand-graphite)] text-white"
+      className="hero-section relative isolate overflow-hidden bg-[#0a0a0c] text-white"
     >
-      {/* Background — dirt track photo, scroll-zoom + mouse parallax */}
+      {/* Background photo, pushed right and faded into the dark on the left */}
       <div aria-hidden className="absolute inset-0">
-        <div data-depth="0.18" className="hero-bg-layer absolute inset-0">
-          {/* eslint-disable-next-line @next/next/no-img-element -- full-bleed parallax background, not a standard content image */}
+        <div data-depth="0.12" className="hero-bg-layer absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element -- full-bleed parallax background */}
           <img
-            className="hero-bg-image absolute inset-0 h-full w-full object-cover"
+            className="hero-bg-image absolute inset-0 h-full w-full object-cover object-[70%_center] opacity-60"
             src={HERO_IMAGE}
             alt=""
           />
         </div>
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(14,14,16,0.55)_0%,_rgba(14,14,16,0.6)_55%,_rgba(14,14,16,0.92)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#0a0a0c_0%,rgba(10,10,12,0.92)_35%,rgba(10,10,12,0.55)_70%,rgba(10,10,12,0.75)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,#0a0a0c_100%)]" />
+        <div className="absolute -left-40 top-1/3 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(233,168,32,0.14),transparent_65%)] blur-2xl" />
+        <div className="absolute -right-20 bottom-0 h-[480px] w-[640px] rounded-full bg-[radial-gradient(circle,rgba(42,122,99,0.22),transparent_65%)] blur-2xl" />
       </div>
 
-      <HeroScene />
-
-      {/* Top eyebrow rail */}
-      <div className="relative border-b border-white/[0.06]">
-        <div className="mx-auto flex max-w-[1200px] items-center justify-center gap-3 px-6 py-3 text-[11px] uppercase tracking-[0.28em] text-white/70">
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--brand-gold)] [animation:glowPulse_2.4s_ease-in-out_infinite]" />
-          Now open · 4 tracks · Cars, crawlers, dozers &amp; diggers
-          <span aria-hidden className="hidden text-white/30 sm:inline">·</span>
-          <Link
-            href="/tracks"
-            className="hidden text-white/90 transition-colors hover:text-[color:var(--brand-gold)] sm:inline"
-          >
-            See the tracks ›
-          </Link>
-        </div>
-      </div>
-
-      <div className="relative mx-auto flex min-h-[760px] max-w-[1280px] flex-col items-center justify-center px-4 pb-40 pt-16 text-center sm:px-6 sm:pt-20 lg:min-h-[880px]">
-        <div data-depth="0.45" className="hero-content-layer flex w-full flex-col items-center">
-          <h1 className="sr-only">RC Adventure — The Ultimate RC Experience</h1>
-
+      <div className="relative mx-auto grid max-w-[1280px] items-center gap-12 px-4 pb-16 pt-16 sm:px-6 lg:min-h-[clamp(560px,calc(100svh-4rem-148px),780px)] lg:grid-cols-[1.05fr_1fr] lg:gap-8 lg:pb-20 lg:pt-20">
+        {/* Logo emblem — first on mobile, right on desktop */}
+        <div data-depth="0.3" className="hero-content-layer order-first lg:order-last">
           <Image
             src="/brand/rc-adventure-logo.png"
             alt="WellMade RC Adventure — The Ultimate RC Experience. Drive It. Race It. Own It."
             width={2172}
             height={724}
             priority
-            sizes="(min-width: 1100px) 1040px, 96vw"
-            className="h-auto w-full max-w-[1040px] drop-shadow-[0_12px_40px_rgba(0,0,0,0.65)]"
+            sizes="(min-width: 1024px) 620px, 92vw"
+            className="mx-auto h-auto w-full max-w-[620px] drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)]"
           />
+        </div>
 
-          <ScrollReveal delayMs={300} className="mt-8 max-w-2xl">
-            <p className="text-balance text-lg font-400 tracking-apple-tight text-white/90 sm:text-xl">
-              Get behind the controls of RC rally cars, rock crawlers, bulldozers
-              and excavators. Real dirt tracks, a working dig site, and a crew to
-              get you started.
+        <div className="max-w-[600px]">
+          <ScrollReveal>
+            <p className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-white/60">
+              <span className="h-px w-8 bg-[color:var(--brand-gold)]" />
+              Now open · Cars, crawlers, dozers &amp; diggers
             </p>
           </ScrollReveal>
-
-          <ScrollReveal
-            delayMs={480}
-            className="mt-10 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:gap-4"
-          >
+          <h1 className="mt-6 font-display text-[48px] font-500 leading-[0.98] tracking-apple-mass text-balance sm:text-[68px] lg:text-[80px]">
+            The ultimate{" "}
+            <em className="font-400 italic text-[color:var(--brand-gold)]">RC</em>{" "}
+            experience.
+          </h1>
+          <ScrollReveal delayMs={150}>
+            <p className="mt-6 max-w-[34rem] text-[17px] font-300 leading-relaxed text-white/70 sm:text-[18px]">
+              Race rally cars over jumps, crawl a boulder trail, and dig a real
+              sandpit with RC excavators and bulldozers. Four purpose-built tracks,
+              one unforgettable session.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delayMs={280} className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/contact"
-              className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[color:var(--brand-gold)] px-8 text-[15px] font-bold uppercase tracking-[0.08em] text-[#0E0E10] shadow-[0_8px_30px_rgba(233,168,32,0.35)] transition-transform hover:scale-[1.03] sm:w-auto"
+              className="inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[color:var(--brand-gold)] px-8 py-4 text-[15px] font-semibold text-[#0E0E10] shadow-[0_10px_40px_-8px_rgba(233,168,32,0.55)] transition-colors hover:bg-[color:var(--brand-gold-light)]"
             >
               Book a session
+              <span aria-hidden>→</span>
             </Link>
             <Link
               href="/tracks"
-              className="inline-flex h-12 w-full items-center justify-center rounded-full border border-white/40 bg-white/5 px-8 text-[15px] font-semibold text-white backdrop-blur transition-colors hover:border-[color:var(--brand-gold)] hover:text-[color:var(--brand-gold)] sm:w-auto"
+              className="inline-flex h-13 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] px-8 py-4 text-[15px] font-semibold text-white backdrop-blur transition-colors hover:border-white/40 hover:bg-white/[0.08]"
             >
               Explore the tracks
             </Link>
           </ScrollReveal>
         </div>
+      </div>
 
-        <div
-          aria-hidden
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-white/40"
-        >
-          Scroll
+      {/* Track index strip */}
+      <div className="relative border-t border-white/[0.08] bg-black/30 backdrop-blur-md">
+        <div className="mx-auto grid max-w-[1280px] grid-cols-2 lg:grid-cols-4">
+          {TRACKS.map((t, i) => (
+            <Link
+              key={t.slug}
+              href={`/tracks#${t.slug}`}
+              className="group flex flex-col gap-1.5 border-white/[0.08] px-4 py-6 transition-colors hover:bg-white/[0.03] sm:px-6 [&:not(:nth-child(2n))]:border-r lg:[&:not(:last-child)]:border-r"
+            >
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[color:var(--brand-gold)]">
+                Track {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="flex items-center justify-between font-display text-[19px] font-500 text-white">
+                {t.name}
+                <span aria-hidden className="text-white/30 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[color:var(--brand-gold)]">→</span>
+              </span>
+              <span className="hidden text-[12px] text-white/45 sm:block">{t.machines.join(" · ")}</span>
+            </Link>
+          ))}
         </div>
       </div>
 

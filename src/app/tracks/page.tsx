@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
-import { TrackCard, getTrackImages } from "@/frontend/components/site/track-card";
+import { TrackCard } from "@/frontend/components/site/track-card";
 import { HOW_IT_WORKS, TRACKS } from "@/shared/data/tracks";
 
 export const metadata: Metadata = {
@@ -29,18 +29,17 @@ const GOOD_TO_KNOW = [
   },
 ];
 
-export default async function TracksPage() {
-  const trackImages = await getTrackImages();
+export default function TracksPage() {
 
   return (
     <>
-      <section className="bg-[color:var(--brand-graphite)] text-white">
+      <section className="bg-[#0a0a0c] text-white">
         <div className="mx-auto max-w-[1280px] px-4 py-20 text-center sm:px-6 sm:py-28">
           <ScrollReveal>
             <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-gold)]">
               RC Adventure · Tracks
             </p>
-            <h1 className="mx-auto mt-5 max-w-[14ch] font-display text-[44px] font-600 leading-[0.95] tracking-apple-mass text-balance sm:text-[72px] lg:text-[96px]">
+            <h1 className="mx-auto mt-5 max-w-[14ch] font-display text-[48px] font-500 leading-[0.98] tracking-apple-mass text-balance sm:text-[72px] lg:text-[96px]">
               Pick your terrain.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-balance text-base font-300 text-white/75 sm:text-lg">
@@ -62,11 +61,11 @@ export default async function TracksPage() {
         </div>
       </section>
 
-      <section className="bg-background">
-        <div className="mx-auto grid max-w-[1280px] gap-6 px-4 py-20 sm:px-6 sm:py-28 md:grid-cols-2">
+      <section className="bg-[#0a0a0c]">
+        <div className="mx-auto grid max-w-[1280px] gap-5 px-4 pb-24 sm:px-6 sm:pb-32 md:grid-cols-2">
           {TRACKS.map((t, i) => (
-            <ScrollReveal key={t.slug} delayMs={(i % 2) * 100}>
-              <TrackCard track={t} imageUrl={trackImages[t.slug]} index={i} />
+            <ScrollReveal key={t.slug} delayMs={(i % 2) * 100} className="h-full">
+              <TrackCard track={t} index={i} />
             </ScrollReveal>
           ))}
         </div>
