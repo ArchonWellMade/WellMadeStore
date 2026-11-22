@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Hero } from "@/frontend/components/site/hero";
 import { ProductCard } from "@/frontend/components/site/product-card";
@@ -8,6 +9,7 @@ import { TrackCard } from "@/frontend/components/site/track-card";
 import { getCategories } from "@/shared/data/categories";
 import { getProductsByCategory } from "@/shared/data/products";
 import { HOW_IT_WORKS, TRACKS } from "@/shared/data/tracks";
+import { PHOTOS } from "@/shared/data/photos";
 
 const STATS = [
   { to: 4, suffix: "", label: "Purpose-built tracks" },
@@ -46,6 +48,27 @@ function Eyebrow({ children, tone = "gold" }: { children: React.ReactNode; tone?
     </p>
   );
 }
+
+function PhotoFrame({ src, alt, tag }: { src: string; alt: string; tag: string }) {
+  return (
+    <figure className="relative aspect-[4/3] overflow-hidden rounded-[28px] border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)]">
+      <Image src={src} alt={alt} fill sizes="(min-width: 1024px) 620px, 100vw" className="object-cover" />
+      <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(10,10,12,0.75)_100%)]" />
+      <figcaption className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full bg-black/50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white backdrop-blur-md">
+        <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--brand-gold)]" />
+        {tag}
+      </figcaption>
+    </figure>
+  );
+}
+
+const GALLERY = [
+  { src: PHOTOS.crawlerDirtHill, alt: "RC crawler cresting a dirt hill", cls: "col-span-2 row-span-2" },
+  { src: PHOTOS.crawlerCreek, alt: "Scale truck splashing through a creek", cls: "" },
+  { src: PHOTOS.truckNightLights, alt: "RC truck with light bar at night", cls: "" },
+  { src: PHOTOS.crawlerForestLog, alt: "Crawler climbing a log in the forest", cls: "" },
+  { src: PHOTOS.crawlerRockFace, alt: "Crawler on a steep rock face", cls: "" },
+];
 
 export default async function Home() {
   const [carsProducts, digProducts, categories] = await Promise.all([
@@ -122,10 +145,10 @@ export default async function Home() {
             </Link>
           </ScrollReveal>
           <ScrollReveal delayMs={150}>
-            <LogoArt
-              crop="machines"
-              label="RC excavator and bulldozer at work in the dirt"
-              className="w-full drop-shadow-[0_40px_60px_rgba(0,0,0,0.6)]"
+            <PhotoFrame
+              src={PHOTOS.excavatorSandpit}
+              alt="RC excavator digging in the sandpit"
+              tag="The Dig Site"
             />
           </ScrollReveal>
         </div>
@@ -152,10 +175,10 @@ export default async function Home() {
         <div aria-hidden className="absolute left-0 top-1/2 h-[600px] w-[800px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(42,122,99,0.25),transparent_60%)] blur-2xl" />
         <div className="relative mx-auto grid max-w-[1280px] items-center gap-14 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2">
           <ScrollReveal delayMs={150} className="order-last lg:order-first">
-            <LogoArt
-              crop="buggy"
-              label="RC rally buggy tearing through the dirt"
-              className="mx-auto w-full max-w-[560px] drop-shadow-[0_40px_60px_rgba(0,0,0,0.6)]"
+            <PhotoFrame
+              src={PHOTOS.driverWithBuggy}
+              alt="Driver racing an RC buggy across the gravel"
+              tag="Dirt Rally Circuit"
             />
           </ScrollReveal>
           <ScrollReveal>
@@ -259,6 +282,39 @@ export default async function Home() {
                     </Link>
                   </div>
                 </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Gallery ─────────────────────────────────────────── */}
+      <section className="border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
+          <ScrollReveal className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+            <div>
+              <Eyebrow>Out on the tracks</Eyebrow>
+              <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass sm:text-[64px]">
+                Mud, rocks &amp; <span className="italic text-[color:var(--brand-gold)]">horsepower.</span>
+              </h2>
+            </div>
+            <Link
+              href="/tracks"
+              className="inline-flex h-12 w-fit items-center gap-2 rounded-full border border-white/20 px-7 text-[14px] font-semibold text-white transition-colors hover:border-white/50"
+            >
+              See every track <span aria-hidden>→</span>
+            </Link>
+          </ScrollReveal>
+          <div className="mt-14 grid auto-rows-[160px] grid-cols-2 gap-3 sm:auto-rows-[220px] lg:grid-cols-4 lg:gap-4">
+            {GALLERY.map((g, i) => (
+              <ScrollReveal key={g.src} delayMs={i * 80} className={`relative overflow-hidden rounded-2xl ${g.cls}`}>
+                <Image
+                  src={g.src}
+                  alt={g.alt}
+                  fill
+                  sizes={g.cls ? "(min-width: 1024px) 640px, 100vw" : "(min-width: 1024px) 320px, 50vw"}
+                  className="object-cover transition-transform duration-[900ms] ease-out hover:scale-[1.05]"
+                />
               </ScrollReveal>
             ))}
           </div>

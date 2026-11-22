@@ -18,7 +18,7 @@ export async function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-[rgba(10,10,12,0.82)] backdrop-blur-xl supports-[backdrop-filter]:bg-[rgba(10,10,12,0.7)]">
       <ScrollProgress />
-      <div className="mx-auto grid h-16 max-w-[1280px] grid-cols-[auto_1fr_auto] items-center gap-6 px-4 text-[#f5f5f7] sm:px-6">
+      <div className="mx-auto grid h-20 max-w-[1400px] grid-cols-[auto_1fr_auto] items-center gap-8 px-4 text-[#f5f5f7] sm:px-6 lg:h-28">
         <Link
           href="/"
           aria-label="RC Adventure — home"
@@ -30,17 +30,17 @@ export async function SiteHeader() {
             width={2172}
             height={724}
             priority
-            sizes="160px"
-            className="h-11 w-auto"
+            sizes="(min-width: 1024px) 300px, 200px"
+            className="h-14 w-auto lg:h-[92px]"
           />
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center justify-center gap-1 lg:flex">
+        <nav aria-label="Primary" className="hidden items-center justify-start gap-2 lg:flex xl:gap-4">
           {PRIMARY.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-full px-4 py-2 text-[13px] font-medium text-white/70 transition-colors hover:bg-white/[0.06] hover:text-white"
+              className="relative px-3 py-2 text-[15px] font-extrabold uppercase italic tracking-[0.02em] text-white transition-colors after:absolute after:inset-x-3 after:-bottom-0.5 after:h-[3px] after:origin-left after:scale-x-0 after:bg-[color:var(--brand-gold)] after:transition-transform after:duration-300 hover:text-[color:var(--brand-gold)] hover:after:scale-x-100 xl:text-[16px]"
             >
               {item.label}
             </Link>
@@ -54,15 +54,15 @@ export async function SiteHeader() {
           <Link
             href="/products"
             aria-label="Shop"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/[0.06] hover:text-white"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/[0.06] hover:text-white"
           >
-            <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={1.6} aria-hidden />
+            <ShoppingBag className="h-[22px] w-[22px]" strokeWidth={1.7} aria-hidden />
           </Link>
           <Link
             href="/contact"
-            className="ml-1 hidden h-10 items-center rounded-full bg-[color:var(--brand-gold)] px-5 text-[13px] font-semibold text-[#0E0E10] transition-colors hover:bg-[color:var(--brand-gold-light)] sm:inline-flex"
+            className="ml-2 hidden h-11 -skew-x-12 items-center bg-[color:var(--brand-gold)] px-6 text-[14px] font-extrabold uppercase italic text-[#0E0E10] transition-colors hover:bg-[color:var(--brand-gold-light)] sm:inline-flex"
           >
-            Book a session
+            <span className="skew-x-12">Book now</span>
           </Link>
 
           <details className="relative lg:hidden">
@@ -74,13 +74,13 @@ export async function SiteHeader() {
                 <path d="M2 5 H14 M2 11 H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
             </summary>
-            <div className="fixed inset-x-0 top-16 z-50 h-[calc(100dvh-4rem)] overflow-y-auto bg-[rgba(10,10,12,0.98)] backdrop-blur-xl">
+            <div className="fixed inset-x-0 top-20 z-50 h-[calc(100dvh-5rem)] overflow-y-auto bg-[rgba(10,10,12,0.98)] backdrop-blur-xl">
               <nav className="mx-auto flex max-w-[1280px] flex-col px-6 py-8">
                 {PRIMARY.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="border-b border-white/[0.06] py-4 font-display text-[28px] font-500 text-white transition-colors hover:text-[color:var(--brand-gold)]"
+                    className="border-b border-white/[0.06] py-4 text-[26px] font-extrabold uppercase italic text-white transition-colors hover:text-[color:var(--brand-gold)]"
                   >
                     {item.label}
                   </Link>

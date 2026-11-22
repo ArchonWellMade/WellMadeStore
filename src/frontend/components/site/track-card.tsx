@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Track } from "@/shared/data/tracks";
 
@@ -82,43 +83,26 @@ export function TrackCard({
   const body = (
     <article
       id={href ? undefined : track.slug}
-      className="group relative flex h-full scroll-mt-24 flex-col overflow-hidden rounded-[28px] border border-white/[0.08] bg-[linear-gradient(160deg,#1a1b1f_0%,#111214_60%,#0c0d0e_100%)] text-white transition-colors duration-500 hover:border-[color:var(--brand-gold)]/40"
+      className="group relative flex h-full scroll-mt-32 flex-col overflow-hidden rounded-[28px] border border-white/[0.08] bg-[linear-gradient(160deg,#1a1b1f_0%,#111214_60%,#0c0d0e_100%)] text-white transition-colors duration-500 hover:border-[color:var(--brand-gold)]/40"
     >
-      {/* Art panel */}
-      <div className="relative aspect-[400/220] overflow-hidden border-b border-white/[0.06]">
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.35]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 0%, rgba(233,168,32,0.18), transparent 55%), radial-gradient(circle at 100% 100%, rgba(42,122,99,0.35), transparent 60%)",
-          }}
+      {/* Photo panel with the track map inset */}
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-white/[0.06] bg-[#111214]">
+        <Image
+          src={track.photo}
+          alt={`${track.name} at RC Adventure`}
+          fill
+          sizes="(min-width: 768px) 620px, 100vw"
+          className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.05]"
         />
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        <svg
-          viewBox="0 0 400 220"
-          aria-hidden
-          className="absolute inset-0 h-full w-full p-4 transition-transform duration-700 group-hover:scale-[1.04]"
-        >
-          <TrackArt slug={track.slug} />
-        </svg>
-        <span
-          aria-hidden
-          className="absolute right-5 top-3 font-display text-[64px] font-600 leading-none text-white/[0.07]"
-        >
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <span className="absolute left-5 top-5 text-[10px] font-semibold uppercase tracking-[0.3em] text-[color:var(--brand-gold)]">
+        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,12,0.55)_0%,transparent_35%,transparent_55%,rgba(10,10,12,0.85)_100%)]" />
+        <span className="absolute left-5 top-5 rounded-full bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-[color:var(--brand-gold)] backdrop-blur-md">
           Track {String(index + 1).padStart(2, "0")}
         </span>
+        <div className="absolute bottom-4 right-4 w-28 rounded-xl border border-white/10 bg-black/55 p-1.5 backdrop-blur-md sm:w-32">
+          <svg viewBox="0 0 400 220" aria-label={`${track.name} layout`} role="img" className="h-auto w-full">
+            <TrackArt slug={track.slug} />
+          </svg>
+        </div>
       </div>
 
       {/* Copy */}

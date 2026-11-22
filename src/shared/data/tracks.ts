@@ -1,4 +1,6 @@
-/** RC Adventure play zones. Each card draws its own line-art map (see track-card.tsx). */
+import { PHOTOS } from "@/shared/data/photos";
+
+/** RC Adventure play zones. */
 export type Track = {
   slug: string;
   name: string;
@@ -6,6 +8,7 @@ export type Track = {
   description: string;
   machines: string[];
   features: string[];
+  photo: string;
 };
 
 export const TRACKS: Track[] = [
@@ -17,6 +20,7 @@ export const TRACKS: Track[] = [
       "A looping off-road circuit cut into packed dirt with banked corners, tabletop jumps and a timed lap board. Race your mates or chase your own best lap.",
     machines: ["Rally cars", "Buggies", "Monster trucks"],
     features: ["Tabletop jumps", "Banked berms", "Lap timing"],
+    photo: PHOTOS.rallyBuggyDust,
   },
   {
     slug: "dig-site",
@@ -26,6 +30,7 @@ export const TRACKS: Track[] = [
       "A construction zone sandpit where you run RC excavators, bulldozers, wheel loaders and dump trucks. Dig trenches, push piles, load up and haul it across the site.",
     machines: ["Excavators", "Bulldozers", "Wheel loaders", "Dump trucks"],
     features: ["Deep sandpit", "Loading ramps", "Haul road"],
+    photo: PHOTOS.excavatorRocks,
   },
   {
     slug: "rock-crawler-trail",
@@ -35,6 +40,7 @@ export const TRACKS: Track[] = [
       "A mountain-style trail of boulders, logs, steep climbs and a creek crossing. Pick your line, feather the throttle and see if you can clear it without a tow.",
     machines: ["Crawlers", "4x4 trucks"],
     features: ["Boulder field", "Log steps", "Creek crossing"],
+    photo: PHOTOS.crawlerClimb,
   },
   {
     slug: "drift-pad",
@@ -44,6 +50,7 @@ export const TRACKS: Track[] = [
       "A polished indoor pad with a figure-eight layout built for mini drift cars. Learn to hold a slide, link the corners and tandem with a friend.",
     machines: ["Mini drift cars"],
     features: ["Figure-eight layout", "Indoor surface", "Tandem lanes"],
+    photo: PHOTOS.driftChassis,
   },
 ];
 
