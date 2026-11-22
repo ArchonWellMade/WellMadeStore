@@ -9,6 +9,10 @@ import { SiteHeader } from "@/frontend/components/site/site-header";
 import { SiteFooter } from "@/frontend/components/site/site-footer";
 import "./globals.css";
 
+// Every page reads live Supabase data (no-store fetches in the header and pages),
+// so render per request instead of attempting static prerendering at build time.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: {
     default: "RC Adventure — The Ultimate RC Experience",
