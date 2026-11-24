@@ -8,7 +8,10 @@ export const PRICING = {
 } as const;
 
 /** Big "pre-book and save 50%" offer block. */
-export function OfferBanner() {
+export function OfferBanner({
+  ctaHref = "/contact",
+  ctaLabel,
+}: { ctaHref?: string; ctaLabel?: string } = {}) {
   const { minutes, walkIn, preBooked } = PRICING;
   const savePct = Math.round((1 - preBooked / walkIn) * 100);
 
@@ -35,10 +38,10 @@ export function OfferBanner() {
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link
-                    href="/contact"
+                    href={ctaHref}
                     className="inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[color:var(--brand-gold)] px-8 py-4 text-[15px] font-semibold text-[#0E0E10] shadow-[0_10px_40px_-8px_rgba(233,168,32,0.55)] transition-colors hover:bg-[color:var(--brand-gold-light)]"
                   >
-                    Pre-book for ${preBooked}
+                    {ctaLabel ?? `Pre-book for $${preBooked}`}
                     <span aria-hidden>→</span>
                   </Link>
                 </div>

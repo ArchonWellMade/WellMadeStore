@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 /** Pages whose top section is dark, so the header can sit transparently over it. */
-const OVERLAY_PATHS = new Set(["/", "/tracks"]);
+const OVERLAY_PATHS = new Set(["/", "/tracks", "/contact"]);
 
 /**
  * Fixed header that is fully transparent over the hero on overlay pages and
