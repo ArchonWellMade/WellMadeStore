@@ -58,7 +58,7 @@ export const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Book a session",
-    body: "Pick a time and how many drivers. Walk-ins welcome when there's room.",
+    body: "Pick a time and how many drivers. Pre-book for $10 per 10 mins — walk-ins $20.",
   },
   {
     step: "02",

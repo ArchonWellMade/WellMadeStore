@@ -5,6 +5,7 @@ import { ProductCard } from "@/frontend/components/site/product-card";
 import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
 import { CountUp } from "@/frontend/components/site/count-up";
 import { LogoArt } from "@/frontend/components/site/logo-art";
+import { OfferBanner, PRICING } from "@/frontend/components/site/offer-banner";
 import { TrackCard } from "@/frontend/components/site/track-card";
 import { getCategories } from "@/shared/data/categories";
 import { getProductsByCategory } from "@/shared/data/products";
@@ -22,6 +23,7 @@ const PACKAGES = [
     name: "Drive Session",
     blurb: "Walk in, pick a machine, run every track.",
     points: ["All four tracks", "Swap machines as you go", "Crew on hand to help"],
+    price: { now: PRICING.preBooked, was: PRICING.walkIn, unit: `${PRICING.minutes} min · pre-booked` },
   },
   {
     name: "Birthday Party",
@@ -82,6 +84,7 @@ export default async function Home() {
   return (
     <div className="bg-[#0a0a0c] text-white">
       <Hero />
+      <OfferBanner />
 
       {/* ── Tracks ─────────────────────────────────────────── */}
       <section className="relative">
@@ -261,6 +264,13 @@ export default async function Home() {
                   ) : null}
                   <h3 className="font-display text-[28px] font-500">{p.name}</h3>
                   <p className="mt-2 text-[15px] text-white/60">{p.blurb}</p>
+                  {"price" in p && p.price ? (
+                    <div className="mt-6 flex items-baseline gap-3">
+                      <span className="font-display text-[48px] font-500 leading-none text-[color:var(--brand-gold)]">${p.price.now}</span>
+                      <span className="text-[18px] text-white/40 line-through">${p.price.was}</span>
+                      <span className="text-[12px] uppercase tracking-[0.14em] text-white/50">/ {p.price.unit}</span>
+                    </div>
+                  ) : null}
                   <ul className="mt-8 space-y-3 border-t border-white/[0.08] pt-8 text-[14px] text-white/80">
                     {p.points.map((pt) => (
                       <li key={pt} className="flex items-center gap-3">

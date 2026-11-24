@@ -31,10 +31,10 @@ export default function ContactPage() {
                 Email
               </p>
               <a
-                href="mailto:hello@wellmadestore.com.au"
+                href="mailto:admin@wellmadeblinds.com.au"
                 className="font-display text-[22px] font-500 tracking-apple-tight text-foreground transition-colors hover:text-[color:var(--brand-gold)] sm:text-2xl"
               >
-                hello@wellmadestore.com.au
+                admin@wellmadeblinds.com.au
               </a>
               <p className="text-[14px] text-muted-foreground">
                 Replies within one business day.
@@ -48,10 +48,10 @@ export default function ContactPage() {
                 Phone
               </p>
               <a
-                href="tel:+61000000000"
+                href="tel:+61415381093"
                 className="font-display text-[22px] font-500 tracking-apple-tight text-foreground transition-colors hover:text-[color:var(--brand-gold)] sm:text-2xl"
               >
-                +61 (0) 000 000 000
+                +61 415 381 093
               </a>
               <p className="text-[14px] text-muted-foreground">
                 Mon–Fri, 9am–6pm AEDT.

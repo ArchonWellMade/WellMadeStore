@@ -38,6 +38,21 @@ export function Hero() {
               Now open · Cars, crawlers, dozers &amp; diggers
             </p>
           </ScrollReveal>
+          <ScrollReveal delayMs={80}>
+            <Link
+              href="/contact"
+              className="group mt-6 inline-flex items-center gap-3 rounded-full border border-[color:var(--brand-gold)]/50 bg-[color:var(--brand-gold)]/10 py-1.5 pl-1.5 pr-4 text-[13px] text-white backdrop-blur transition-colors hover:bg-[color:var(--brand-gold)]/20"
+            >
+              <span className="rounded-full bg-[color:var(--brand-gold)] px-2.5 py-1 text-[11px] font-extrabold uppercase italic tracking-[0.12em] text-[#0E0E10]">
+                Offer
+              </span>
+              <span>
+                10 mins <span className="text-white/45 line-through">$20</span>{" "}
+                <strong className="font-semibold text-[color:var(--brand-gold)]">$10</strong> when you pre-book
+              </span>
+              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+            </Link>
+          </ScrollReveal>
           <h1 className="mt-6 font-display text-[52px] font-500 leading-[0.96] tracking-apple-mass text-balance sm:text-[76px] lg:text-[104px]">
             The ultimate{" "}
             <em className="font-400 italic text-[color:var(--brand-gold)]">RC</em>{" "}
