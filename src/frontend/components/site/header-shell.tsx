@@ -13,7 +13,7 @@ const OVERLAY_PATHS = new Set(["/", "/tracks", "/contact"]);
  */
 export function HeaderShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const overlay = OVERLAY_PATHS.has(pathname);
+  const overlay = OVERLAY_PATHS.has(pathname) || pathname.startsWith("/products");
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -32,6 +32,7 @@ export function HeaderShell({ children }: { children: React.ReactNode }) {
     <>
       <header
         data-transparent={transparent || undefined}
+        style={{ viewTransitionName: "site-header" }}
         className={`fixed inset-x-0 top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-500 ${
           transparent
             ? "border-b border-transparent bg-gradient-to-b from-black/50 to-transparent"

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ProductCard } from "@/frontend/components/site/product-card";
 import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
 import { getCategories } from "@/shared/data/categories";
-import { getAllProducts, getProductsByCategory } from "@/shared/data/products";
+import { getAllProducts } from "@/shared/data/products";
 
 export const metadata: Metadata = {
   title: "Shop",
@@ -19,92 +19,98 @@ export default async function ProductsPage({
   searchParams: Promise<SearchParams>;
 }) {
   const { category } = await searchParams;
-  const categories = await getCategories();
-  const activeCategory = category
-    ? categories.find((c) => c.slug === category)
-    : undefined;
-  const list = activeCategory
-    ? await getProductsByCategory(activeCategory.slug)
-    : await getAllProducts();
+  const [categories, all] = await Promise.all([getCategories(), getAllProducts()]);
+  const activeCategory = category ? categories.find((c) => c.slug === category) : undefined;
+  const list = activeCategory ? all.filter((p) => p.category_slug === activeCategory.slug) : all;
   const categoryTitleBySlug = new Map(categories.map((c) => [c.slug, c.title]));
+  const countBySlug = new Map<string, number>();
+  for (const p of all) countBySlug.set(p.category_slug, (countBySlug.get(p.category_slug) ?? 0) + 1);
+
+  const pill = (active: boolean) =>
+    `group/pill inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-[13px] font-semibold transition-all duration-300 ${
+      active
+        ? "border-[color:var(--brand-gold)] bg-[color:var(--brand-gold)] text-[#0E0E10] shadow-[0_8px_24px_-8px_rgba(233,168,32,0.6)]"
+        : "border-white/12 text-white/65 hover:border-white/40 hover:text-white"
+    }`;
+  const count = (active: boolean) =>
+    `rounded-full px-1.5 text-[11px] tabular-nums ${active ? "bg-black/15" : "bg-white/[0.08] text-white/50"}`;
 
   return (
-    <section className="bg-background">
-      <div className="mx-auto max-w-[1200px] px-5 py-16 sm:px-6 sm:py-24 lg:py-28">
-        <ScrollReveal className="text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-forest)]">
-            {activeCategory ? activeCategory.title : "Shop"}
-          </p>
-          <h1 className="mt-4 font-display text-[40px] font-500 leading-[1.05] tracking-apple-mass text-balance sm:text-[56px] lg:text-[72px]">
-            {activeCategory ? activeCategory.title : "The full collection."}
-          </h1>
-          {activeCategory?.longDescription ? (
-            <p className="mx-auto mt-6 max-w-2xl text-balance text-[15px] font-300 leading-relaxed tracking-apple-tight text-muted-foreground sm:text-base">
-              {activeCategory.longDescription}
+    <div className="min-h-screen bg-[#0a0a0c] text-white">
+      {/* ── Hero ──────────────────────────────────────────── */}
+      <section className="relative isolate overflow-hidden">
+        <div aria-hidden className="absolute -left-40 top-10 -z-10 h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(233,168,32,0.16),transparent_65%)] blur-2xl" />
+        <div aria-hidden className="absolute -right-32 top-40 -z-10 h-[460px] w-[620px] rounded-full bg-[radial-gradient(circle,rgba(42,122,99,0.18),transparent_65%)] blur-2xl" />
+        <div className="mx-auto max-w-[1280px] px-4 pb-14 pt-36 sm:px-6 lg:pb-16 lg:pt-48">
+          <div key={activeCategory?.slug ?? "all"} className="max-w-3xl">
+            <p className="product-rise inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-gold)]">
+              <span className="h-px w-8 bg-current opacity-70" />
+              {activeCategory ? "The shop" : "The shop · Own it"}
             </p>
-          ) : (
-            <p className="mx-auto mt-6 max-w-2xl text-balance text-[15px] font-300 leading-relaxed tracking-apple-tight text-muted-foreground sm:text-base">
-              RC cars, helicopters, aeroplanes, power boats, engineering
-              vehicles and robots — plus handheld gimbals and tech
-              essentials. RCM certified for Australia.
+            <h1
+              className="product-rise mt-6 font-display text-[48px] font-500 leading-[0.98] tracking-apple-mass text-balance sm:text-[72px] lg:text-[92px]"
+              style={{ animationDelay: "80ms" }}
+            >
+              {activeCategory ? (
+                activeCategory.title
+              ) : (
+                <>
+                  Machines to <em className="font-400 italic text-[color:var(--brand-gold)]">own.</em>
+                </>
+              )}
+            </h1>
+            <p
+              className="product-rise mt-6 max-w-2xl text-[16px] font-300 leading-relaxed text-white/60 sm:text-[17px]"
+              style={{ animationDelay: "160ms" }}
+            >
+              {activeCategory?.longDescription ||
+                "RC cars, helicopters, aeroplanes, power boats, engineering vehicles and robots — plus handheld gimbals and tech essentials. RCM certified for Australia."}
             </p>
-          )}
-        </ScrollReveal>
+          </div>
+        </div>
+      </section>
 
-        {/* Category pills — horizontal scroll on mobile, wrapped on desktop */}
-        <nav
-          aria-label="Categories"
-          className="mt-10 -mx-5 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:flex-wrap sm:items-center sm:justify-center sm:overflow-visible sm:px-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          <Link
-            href="/products"
-            className={`shrink-0 rounded-full border px-4 py-2 text-[13px] font-medium transition-colors ${
-              activeCategory
-                ? "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground"
-                : "border-foreground bg-foreground text-background"
-            }`}
-          >
-            All
+      {/* ── Sticky category bar ───────────────────────────── */}
+      <nav
+        aria-label="Categories"
+        className="sticky top-20 z-30 border-y border-white/[0.06] bg-[#0a0a0c]/80 backdrop-blur-xl lg:top-28"
+      >
+        <div className="mx-auto flex max-w-[1280px] items-center gap-2 overflow-x-auto px-4 py-3.5 sm:px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <Link href="/products" scroll={false} className={pill(!activeCategory)}>
+            All <span className={count(!activeCategory)}>{all.length}</span>
           </Link>
           {categories.map((c) => {
             const isActive = activeCategory?.slug === c.slug;
             return (
-              <Link
-                key={c.slug}
-                href={`/products?category=${c.slug}`}
-                className={`shrink-0 rounded-full border px-4 py-2 text-[13px] font-medium transition-colors ${
-                  isActive
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground"
-                }`}
-              >
-                {c.title}
+              <Link key={c.slug} href={`/products?category=${c.slug}`} scroll={false} className={pill(isActive)}>
+                {c.title} <span className={count(isActive)}>{countBySlug.get(c.slug) ?? 0}</span>
               </Link>
             );
           })}
-        </nav>
+        </div>
+      </nav>
 
+      {/* ── Grid ──────────────────────────────────────────── */}
+      <section className="mx-auto max-w-[1280px] px-4 pb-28 pt-12 sm:px-6 sm:pt-14">
         {list.length > 0 ? (
-          <div className="mt-14 grid gap-y-12 sm:mt-16 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-16 lg:grid-cols-4 lg:gap-x-10">
-            {list.map((p) => (
-              <ProductCard
-                key={p.slug}
-                slug={p.slug}
-                name={p.name}
-                shortDescription={p.short_description}
-                priceRange={p.price_range}
-                features={p.features}
-                imageUrl={p.image_url}
-                categoryTitle={categoryTitleBySlug.get(p.category_slug) ?? null}
-              />
+          <div key={activeCategory?.slug ?? "all"} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {list.map((p, i) => (
+              <ScrollReveal key={p.slug} delayMs={(i % 4) * 90} offsetY={36} className="h-full">
+                <ProductCard
+                  slug={p.slug}
+                  name={p.name}
+                  shortDescription={p.short_description}
+                  priceRange={p.price_range}
+                  imageUrl={p.image_url}
+                  categoryTitle={activeCategory ? null : categoryTitleBySlug.get(p.category_slug) ?? null}
+                />
+              </ScrollReveal>
             ))}
           </div>
         ) : (
-          <p className="mt-20 text-center text-muted-foreground">
-            Nothing in stock here yet — check back soon.
-          </p>
+          <p className="py-24 text-center text-white/50">Nothing in stock here yet — check back soon.</p>
         )}
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

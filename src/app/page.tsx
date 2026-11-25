@@ -2,13 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Hero } from "@/frontend/components/site/hero";
 import { ProductCard } from "@/frontend/components/site/product-card";
+import { ProductRail } from "@/frontend/components/site/product-rail";
 import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
 import { CountUp } from "@/frontend/components/site/count-up";
 import { LogoArt } from "@/frontend/components/site/logo-art";
 import { OfferBanner, PRICING } from "@/frontend/components/site/offer-banner";
 import { TrackCard } from "@/frontend/components/site/track-card";
 import { getCategories } from "@/shared/data/categories";
-import { getProductsByCategory } from "@/shared/data/products";
+import { getAllProducts } from "@/shared/data/products";
 import { HOW_IT_WORKS, TRACKS } from "@/shared/data/tracks";
 import { PHOTOS } from "@/shared/data/photos";
 
@@ -53,8 +54,10 @@ function Eyebrow({ children, tone = "gold" }: { children: React.ReactNode; tone?
 
 function PhotoFrame({ src, alt, tag }: { src: string; alt: string; tag: string }) {
   return (
-    <figure className="relative aspect-[4/3] overflow-hidden rounded-[28px] border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)]">
-      <Image src={src} alt={alt} fill sizes="(min-width: 1024px) 620px, 100vw" className="object-cover" />
+    <figure className="sd-clip relative aspect-[4/3] overflow-clip rounded-[28px] border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)]">
+      <div className="sd-parallax absolute inset-0">
+        <Image src={src} alt={alt} fill sizes="(min-width: 1024px) 620px, 100vw" className="object-cover" />
+      </div>
       <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(10,10,12,0.75)_100%)]" />
       <figcaption className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full bg-black/50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white backdrop-blur-md">
         <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--brand-gold)]" />
@@ -73,13 +76,17 @@ const GALLERY = [
 ];
 
 export default async function Home() {
-  const [carsProducts, digProducts, categories] = await Promise.all([
-    getProductsByCategory("high-speed-cars"),
-    getProductsByCategory("engineering-vehicles").catch(() => []),
-    getCategories(),
-  ]);
-  const featured = [...digProducts.slice(0, 2), ...carsProducts.slice(0, 2)];
+  const [allProducts, categories] = await Promise.all([getAllProducts(), getCategories()]);
   const categoryTitleBySlug = new Map(categories.map((c) => [c.slug, c.title]));
+  // Up to two per category (featured first) so the rail shows the whole range
+  const featured = categories
+    .flatMap((c) =>
+      allProducts
+        .filter((p) => p.category_slug === c.slug && p.image_url)
+        .sort((a, b) => Number(b.is_featured) - Number(a.is_featured))
+        .slice(0, 2),
+    )
+    .slice(0, 14);
 
   return (
     <div className="bg-[#0a0a0c] text-white">
@@ -105,7 +112,7 @@ export default async function Home() {
           </div>
           <div className="mt-14 grid gap-5 md:grid-cols-2">
             {TRACKS.map((t, i) => (
-              <ScrollReveal key={t.slug} delayMs={(i % 2) * 100} className="h-full">
+              <ScrollReveal key={t.slug} delayMs={(i % 2) * 100} className="sd-rise h-full">
                 <TrackCard track={t} index={i} href={`/tracks#${t.slug}`} />
               </ScrollReveal>
             ))}
@@ -114,7 +121,7 @@ export default async function Home() {
       </section>
 
       {/* ── Dig Site spotlight ─────────────────────────────── */}
-      <section className="relative overflow-hidden border-y border-white/[0.06] bg-[linear-gradient(180deg,#0f1012_0%,#0a0a0c_100%)]">
+      <section className="relative overflow-clip border-y border-white/[0.06] bg-[linear-gradient(180deg,#0f1012_0%,#0a0a0c_100%)]">
         <div aria-hidden className="absolute right-0 top-1/2 h-[600px] w-[800px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(233,168,32,0.12),transparent_60%)] blur-2xl" />
         <div className="relative mx-auto grid max-w-[1280px] items-center gap-14 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2">
           <ScrollReveal>
@@ -173,8 +180,22 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ── Scroll-linked text band ─────────────────────────── */}
+      <section aria-hidden className="select-none overflow-clip border-t border-white/[0.06] py-12 sm:py-16">
+        <div className="sd-band-l whitespace-nowrap font-display text-[64px] font-500 italic leading-[1.05] tracking-apple-mass text-white sm:text-[128px]">
+          Drive it <span className="text-[color:var(--brand-gold)]">·</span> Race it{" "}
+          <span className="text-[color:var(--brand-gold)]">·</span> Own it{" "}
+          <span className="text-[color:var(--brand-gold)]">·</span> Drive it{" "}
+          <span className="text-[color:var(--brand-gold)]">·</span> Race it{" "}
+          <span className="text-[color:var(--brand-gold)]">·</span> Own it
+        </div>
+        <div className="sd-band-r mt-1 whitespace-nowrap font-display text-[64px] font-500 uppercase leading-[1.05] tracking-apple-mass text-transparent [-webkit-text-stroke:1.5px_rgba(233,168,32,0.7)] sm:text-[128px]">
+          Dig · Crawl · Drift · Jump · Dig · Crawl · Drift · Jump · Dig · Crawl
+        </div>
+      </section>
+
       {/* ── Rally spotlight ────────────────────────────────── */}
-      <section className="relative overflow-hidden border-y border-white/[0.06] bg-[linear-gradient(180deg,#0a0a0c_0%,#0d1210_100%)]">
+      <section className="relative overflow-clip border-y border-white/[0.06] bg-[linear-gradient(180deg,#0a0a0c_0%,#0d1210_100%)]">
         <div aria-hidden className="absolute left-0 top-1/2 h-[600px] w-[800px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(42,122,99,0.25),transparent_60%)] blur-2xl" />
         <div className="relative mx-auto grid max-w-[1280px] items-center gap-14 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2">
           <ScrollReveal delayMs={150} className="order-last lg:order-first">
@@ -317,14 +338,20 @@ export default async function Home() {
           </ScrollReveal>
           <div className="mt-14 grid auto-rows-[160px] grid-cols-2 gap-3 sm:auto-rows-[220px] lg:grid-cols-4 lg:gap-4">
             {GALLERY.map((g, i) => (
-              <ScrollReveal key={g.src} delayMs={i * 80} className={`relative overflow-hidden rounded-2xl ${g.cls}`}>
-                <Image
-                  src={g.src}
-                  alt={g.alt}
-                  fill
-                  sizes={g.cls ? "(min-width: 1024px) 640px, 100vw" : "(min-width: 1024px) 320px, 50vw"}
-                  className="object-cover transition-transform duration-[900ms] ease-out hover:scale-[1.05]"
-                />
+              <ScrollReveal
+                key={g.src}
+                delayMs={i * 80}
+                className={`sd-clip group relative overflow-clip rounded-2xl [--sd-radius:16px] ${g.cls}`}
+              >
+                <div className="sd-parallax absolute inset-0">
+                  <Image
+                    src={g.src}
+                    alt={g.alt}
+                    fill
+                    sizes={g.cls ? "(min-width: 1024px) 640px, 100vw" : "(min-width: 1024px) 320px, 50vw"}
+                    className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
+                  />
+                </div>
               </ScrollReveal>
             ))}
           </div>
@@ -333,36 +360,53 @@ export default async function Home() {
 
       {/* ── Shop ───────────────────────────────────────────── */}
       {featured.length > 0 ? (
-        <section className="bg-background text-foreground">
-          <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
-            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+        <section className="relative overflow-clip border-t border-white/[0.06]">
+          <div aria-hidden className="absolute -right-40 top-0 h-[520px] w-[620px] rounded-full bg-[radial-gradient(circle,rgba(233,168,32,0.12),transparent_65%)] blur-2xl" />
+          <div className="relative mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
+            <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
               <ScrollReveal>
-                <Eyebrow tone="forest">Own it</Eyebrow>
+                <Eyebrow>Own it</Eyebrow>
                 <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass sm:text-[64px]">
-                  Take one home.
+                  Take one <span className="italic text-[color:var(--brand-gold)]">home.</span>
                 </h2>
-                <p className="mt-4 max-w-md text-[16px] font-300 text-muted-foreground">
-                  Every machine on our tracks is available in the shop.
+                <p className="mt-4 max-w-md text-[16px] font-300 text-white/60">
+                  Loved it on the track? Excavators, rally cars, crawlers, boats and
+                  more — straight from our shop.
                 </p>
               </ScrollReveal>
-              <Link
-                href="/products"
-                className="inline-flex h-12 w-fit items-center gap-2 rounded-full border border-border px-7 text-[14px] font-semibold transition-colors hover:border-foreground"
-              >
-                Shop all machines <span aria-hidden>→</span>
-              </Link>
+              <ScrollReveal delayMs={120}>
+                <Link
+                  href="/products"
+                  className="inline-flex h-12 w-fit items-center gap-2 rounded-full bg-[color:var(--brand-gold)] px-7 text-[14px] font-semibold text-[#0E0E10] shadow-[0_10px_40px_-8px_rgba(233,168,32,0.55)] transition-colors hover:bg-[color:var(--brand-gold-light)]"
+                >
+                  Shop all {allProducts.length} products <span aria-hidden>→</span>
+                </Link>
+              </ScrollReveal>
             </div>
-            <div className="mt-14 grid gap-y-14 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-4">
-              {featured.map((p) => (
-                <ProductCard
-                  key={`${p.category_slug}-${p.slug}`}
-                  slug={p.slug}
-                  name={p.name}
-                  shortDescription={p.short_description}
-                  priceRange={p.price_range}
-                  imageUrl={p.image_url}
-                  categoryTitle={categoryTitleBySlug.get(p.category_slug) ?? null}
-                />
+            <ScrollReveal delayMs={160} className="mt-8">
+              <ProductRail>
+                {featured.map((p) => (
+                  <ProductCard
+                    key={`${p.category_slug}-${p.slug}`}
+                    slug={p.slug}
+                    name={p.name}
+                    shortDescription={p.short_description}
+                    priceRange={p.price_range}
+                    imageUrl={p.image_url}
+                    categoryTitle={categoryTitleBySlug.get(p.category_slug) ?? null}
+                  />
+                ))}
+              </ProductRail>
+            </ScrollReveal>
+            <div className="mt-10 flex flex-wrap gap-2">
+              {categories.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/products?category=${c.slug}`}
+                  className="rounded-full border border-white/12 px-4 py-2 text-[13px] font-medium text-white/60 transition-colors hover:border-[color:var(--brand-gold)] hover:text-white"
+                >
+                  {c.title}
+                </Link>
               ))}
             </div>
           </div>

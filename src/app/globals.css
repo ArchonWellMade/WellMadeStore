@@ -571,3 +571,99 @@
 .particle-field span:nth-child(7) { top: 50%; left: 35%; animation-delay: 0.3s; }
 .particle-field span:nth-child(8) { top: 30%; left: 45%; animation-delay: 1.4s; background: rgba(31,94,75,0.55); }
 
+
+/* ── Shop: product entrance animations ─────────────────── */
+@keyframes productStageIn {
+  from { opacity: 0; transform: translateX(48px) scale(0.94); filter: blur(10px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes productRise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes productFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+.product-stage-in { animation: productStageIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.product-rise     { animation: productRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.product-float    { animation: productFloat 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .product-stage-in, .product-rise, .product-float { animation: none; }
+}
+
+/* ── View transitions: product morph + directional slides ─ */
+::view-transition-group(.morph) {
+  animation-duration: 600ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation: vtMorphBlur 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes vtMorphBlur {
+  50% { filter: blur(3px); }
+}
+::view-transition-old(.nav-forward) {
+  --slide-offset: -90px;
+  animation: 180ms ease-in both vtFade reverse, 480ms cubic-bezier(0.22, 1, 0.36, 1) both vtSlide reverse;
+}
+::view-transition-new(.nav-forward) {
+  --slide-offset: 90px;
+  animation: 260ms ease-out 140ms both vtFade, 480ms cubic-bezier(0.22, 1, 0.36, 1) both vtSlide;
+}
+::view-transition-old(.nav-back) {
+  --slide-offset: 90px;
+  animation: 180ms ease-in both vtFade reverse, 480ms cubic-bezier(0.22, 1, 0.36, 1) both vtSlide reverse;
+}
+::view-transition-new(.nav-back) {
+  --slide-offset: -90px;
+  animation: 260ms ease-out 140ms both vtFade, 480ms cubic-bezier(0.22, 1, 0.36, 1) both vtSlide;
+}
+@keyframes vtFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes vtSlide { from { translate: var(--slide-offset); } to { translate: 0; } }
+
+/* Keep the header still while content moves */
+::view-transition-group(site-header) { animation: none; z-index: 100; }
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(site-header) { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* ── Scroll-driven animations (progressive enhancement) ── */
+@keyframes sdParallax {
+  from { transform: translateY(-8%) scale(1.18); }
+  to   { transform: translateY(8%) scale(1.18); }
+}
+@keyframes sdClip {
+  from { clip-path: inset(12% 9% 12% 9% round var(--sd-radius, 28px)); }
+  to   { clip-path: inset(0 0 0 0 round var(--sd-radius, 28px)); }
+}
+@keyframes sdBandL {
+  from { transform: translateX(4%); }
+  to   { transform: translateX(-38%); }
+}
+@keyframes sdBandR {
+  from { transform: translateX(-38%); }
+  to   { transform: translateX(4%); }
+}
+@keyframes sdRise {
+  from { opacity: 0.15; transform: translateY(80px) scale(0.94); }
+  to   { opacity: 1; transform: none; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sd-parallax { animation: sdParallax linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+    .sd-clip     { animation: sdClip linear both; animation-timeline: view(); animation-range: entry 0% cover 38%; }
+    .sd-band-l   { animation: sdBandL linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+    .sd-band-r   { animation: sdBandR linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+    .sd-rise     { animation: sdRise linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  }
+}
