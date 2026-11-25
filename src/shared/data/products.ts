@@ -1,5 +1,8 @@
 import { getSupabase } from "@/shared/lib/supabase";
 
+// Old range hidden while the new LESU range is loaded. Set to false to show products again.
+const SHOP_HIDDEN = true;
+
 export type Product = {
   slug: string;
   name: string;
@@ -41,6 +44,7 @@ function mapRow(row: {
 }
 
 export async function getAllProducts(): Promise<Product[]> {
+  if (SHOP_HIDDEN) return [];
   const { data, error } = await getSupabase()
     .from("site_products")
     .select("*")
@@ -51,6 +55,7 @@ export async function getAllProducts(): Promise<Product[]> {
 }
 
 export async function getProductsByCategory(slug: string): Promise<Product[]> {
+  if (SHOP_HIDDEN) return [];
   const { data, error } = await getSupabase()
     .from("site_products")
     .select("*")
@@ -62,6 +67,7 @@ export async function getProductsByCategory(slug: string): Promise<Product[]> {
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {
+  if (SHOP_HIDDEN) return undefined;
   const { data, error } = await getSupabase()
     .from("site_products")
     .select("*")
@@ -73,6 +79,7 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
 }
 
 export async function getFeaturedProducts(limit = 4): Promise<Product[]> {
+  if (SHOP_HIDDEN) return [];
   const { data, error } = await getSupabase()
     .from("site_products")
     .select("*")
