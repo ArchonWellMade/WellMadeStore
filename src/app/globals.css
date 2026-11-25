@@ -667,3 +667,33 @@
     .sd-rise     { animation: sdRise linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
   }
 }
+
+/* ── Scroll-driven entrances: elements move into place as you scroll ── */
+@keyframes sdLeft  { from { opacity: 0; transform: translateX(-140px); } to { opacity: 1; transform: none; } }
+@keyframes sdRight { from { opacity: 0; transform: translateX(140px); }  to { opacity: 1; transform: none; } }
+@keyframes sdUp    { from { opacity: 0; transform: translateY(110px); }  to { opacity: 1; transform: none; } }
+@keyframes sdZoom  { from { opacity: 0; transform: scale(0.78); }        to { opacity: 1; transform: none; } }
+@keyframes sdTilt  {
+  from { opacity: 0; transform: perspective(1200px) translateY(120px) rotateX(24deg) scale(0.92); }
+  to   { opacity: 1; transform: none; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sd-left, .sd-right, .sd-up, .sd-zoom, .sd-tilt {
+      animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+      animation-fill-mode: both;
+      animation-duration: auto;
+      animation-timeline: view();
+      animation-range: entry 0% cover 32%;
+    }
+    .sd-left  { animation-name: sdLeft; }
+    .sd-right { animation-name: sdRight; }
+    .sd-up    { animation-name: sdUp; }
+    .sd-zoom  { animation-name: sdZoom; }
+    .sd-tilt  { animation-name: sdTilt; }
+    /* Stagger siblings that enter the viewport together */
+    .sd-r2 { animation-range: entry 8% cover 40%; }
+    .sd-r3 { animation-range: entry 16% cover 48%; }
+    .sd-r4 { animation-range: entry 24% cover 56%; }
+  }
+}

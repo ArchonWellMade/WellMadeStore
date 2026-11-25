@@ -89,7 +89,7 @@ export default async function Home() {
     .slice(0, 14);
 
   return (
-    <div className="bg-[#0a0a0c] text-white">
+    <div className="overflow-x-clip bg-[#0a0a0c] text-white">
       <Hero />
       <OfferBanner />
 
@@ -97,13 +97,13 @@ export default async function Home() {
       <section className="relative">
         <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
           <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-            <ScrollReveal className="max-w-2xl">
+            <ScrollReveal className="sd-left max-w-2xl">
               <Eyebrow>The tracks</Eyebrow>
               <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[64px]">
                 Four zones. <span className="text-white/40">One session.</span>
               </h2>
             </ScrollReveal>
-            <ScrollReveal delayMs={120} className="max-w-sm">
+            <ScrollReveal delayMs={120} className="sd-right sd-r2 max-w-sm">
               <p className="text-[16px] font-300 leading-relaxed text-white/60">
                 Every track is built for a different machine and a different
                 kind of fun — and your session covers all of them.
@@ -112,7 +112,7 @@ export default async function Home() {
           </div>
           <div className="mt-14 grid gap-5 md:grid-cols-2">
             {TRACKS.map((t, i) => (
-              <ScrollReveal key={t.slug} delayMs={(i % 2) * 100} className="sd-rise h-full">
+              <ScrollReveal key={t.slug} delayMs={(i % 2) * 100} className={`sd-tilt h-full ${i % 2 ? "sd-r2" : ""}`}>
                 <TrackCard track={t} index={i} href={`/tracks#${t.slug}`} />
               </ScrollReveal>
             ))}
@@ -124,7 +124,7 @@ export default async function Home() {
       <section className="relative overflow-clip border-y border-white/[0.06] bg-[linear-gradient(180deg,#0f1012_0%,#0a0a0c_100%)]">
         <div aria-hidden className="absolute right-0 top-1/2 h-[600px] w-[800px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(233,168,32,0.12),transparent_60%)] blur-2xl" />
         <div className="relative mx-auto grid max-w-[1280px] items-center gap-14 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2">
-          <ScrollReveal>
+          <ScrollReveal className="sd-left">
             <Eyebrow>Track 02 · The Dig Site</Eyebrow>
             <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[60px]">
               Real dirt. <br className="hidden sm:block" />
@@ -154,7 +154,7 @@ export default async function Home() {
               Book the Dig Site <span aria-hidden>→</span>
             </Link>
           </ScrollReveal>
-          <ScrollReveal delayMs={150}>
+          <ScrollReveal delayMs={150} className="sd-right sd-r2">
             <PhotoFrame
               src={PHOTOS.excavatorSandpit}
               alt="RC excavator digging in the sandpit"
@@ -168,7 +168,7 @@ export default async function Home() {
       <section>
         <div className="mx-auto grid max-w-[1280px] grid-cols-3 divide-x divide-white/[0.08] px-4 py-20 sm:px-6">
           {STATS.map((s, i) => (
-            <ScrollReveal key={s.label} delayMs={i * 100} className="px-2 text-center sm:px-6">
+            <ScrollReveal key={s.label} delayMs={i * 100} className={`sd-zoom px-2 text-center sm:px-6 ${["", "sd-r2", "sd-r3"][i]}`}>
               <p className="font-display text-[44px] font-500 tabular-nums tracking-apple-mass sm:text-[72px]">
                 <CountUp to={s.to} suffix={s.suffix} />
               </p>
@@ -198,14 +198,14 @@ export default async function Home() {
       <section className="relative overflow-clip border-y border-white/[0.06] bg-[linear-gradient(180deg,#0a0a0c_0%,#0d1210_100%)]">
         <div aria-hidden className="absolute left-0 top-1/2 h-[600px] w-[800px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(42,122,99,0.25),transparent_60%)] blur-2xl" />
         <div className="relative mx-auto grid max-w-[1280px] items-center gap-14 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2">
-          <ScrollReveal delayMs={150} className="order-last lg:order-first">
+          <ScrollReveal delayMs={150} className="sd-left order-last lg:order-first">
             <PhotoFrame
               src={PHOTOS.driverWithBuggy}
               alt="Driver racing an RC buggy across the gravel"
               tag="Dirt Rally Circuit"
             />
           </ScrollReveal>
-          <ScrollReveal>
+          <ScrollReveal className="sd-right sd-r2">
             <Eyebrow>Track 01 · Dirt Rally Circuit</Eyebrow>
             <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[60px]">
               Full throttle. <br className="hidden sm:block" />
@@ -236,7 +236,7 @@ export default async function Home() {
       {/* ── How it works ───────────────────────────────────── */}
       <section>
         <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
-          <ScrollReveal className="text-center">
+          <ScrollReveal className="sd-zoom text-center">
             <Eyebrow>How it works</Eyebrow>
             <h2 className="mx-auto mt-6 max-w-[18ch] font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[64px]">
               Drive it. Race it. <span className="italic text-[color:var(--brand-gold)]">Own it.</span>
@@ -245,7 +245,7 @@ export default async function Home() {
           <ol className="relative mt-16 grid gap-10 sm:grid-cols-3 sm:gap-8">
             <div aria-hidden className="absolute left-0 right-0 top-[27px] hidden h-px bg-gradient-to-r from-transparent via-white/15 to-transparent sm:block" />
             {HOW_IT_WORKS.map((s, i) => (
-              <ScrollReveal key={s.step} delayMs={i * 120} className="relative text-center">
+              <ScrollReveal key={s.step} delayMs={i * 120} className={`sd-up relative text-center ${["", "sd-r2", "sd-r3"][i] ?? ""}`}>
                 <li className="list-none">
                   <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-[color:var(--brand-gold)]/50 bg-[#0a0a0c] font-display text-[18px] text-[color:var(--brand-gold)]">
                     {s.step}
@@ -262,7 +262,7 @@ export default async function Home() {
       {/* ── Packages ───────────────────────────────────────── */}
       <section className="border-t border-white/[0.06]">
         <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
-          <ScrollReveal className="max-w-2xl">
+          <ScrollReveal className="sd-left max-w-2xl">
             <Eyebrow>Sessions &amp; parties</Eyebrow>
             <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[64px]">
               Bring the crew.
@@ -270,7 +270,7 @@ export default async function Home() {
           </ScrollReveal>
           <div className="mt-14 grid gap-5 lg:grid-cols-3">
             {PACKAGES.map((p, i) => (
-              <ScrollReveal key={p.name} delayMs={i * 100} className="h-full">
+              <ScrollReveal key={p.name} delayMs={i * 100} className={`sd-tilt h-full ${["", "sd-r2", "sd-r3"][i] ?? ""}`}>
                 <div
                   className={`flex h-full flex-col rounded-[28px] border p-8 ${
                     p.featured
@@ -322,7 +322,7 @@ export default async function Home() {
       {/* ── Gallery ─────────────────────────────────────────── */}
       <section className="border-t border-white/[0.06]">
         <div className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
-          <ScrollReveal className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <ScrollReveal className="sd-left flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
             <div>
               <Eyebrow>Out on the tracks</Eyebrow>
               <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass sm:text-[64px]">
@@ -341,7 +341,7 @@ export default async function Home() {
               <ScrollReveal
                 key={g.src}
                 delayMs={i * 80}
-                className={`sd-clip group relative overflow-clip rounded-2xl [--sd-radius:16px] ${g.cls}`}
+                className={`sd-clip group relative overflow-clip rounded-2xl [--sd-radius:16px] ${g.cls} ${["", "sd-r2", "sd-r3", "sd-r4"][i % 4]}`}
               >
                 <div className="sd-parallax absolute inset-0">
                   <Image
@@ -364,7 +364,7 @@ export default async function Home() {
           <div aria-hidden className="absolute -right-40 top-0 h-[520px] w-[620px] rounded-full bg-[radial-gradient(circle,rgba(233,168,32,0.12),transparent_65%)] blur-2xl" />
           <div className="relative mx-auto max-w-[1280px] px-4 py-24 sm:px-6 sm:py-32">
             <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-              <ScrollReveal>
+              <ScrollReveal className="sd-left">
                 <Eyebrow>Own it</Eyebrow>
                 <h2 className="mt-6 font-display text-[44px] font-500 leading-[1] tracking-apple-mass sm:text-[64px]">
                   Take one <span className="italic text-[color:var(--brand-gold)]">home.</span>
@@ -374,7 +374,7 @@ export default async function Home() {
                   more — straight from our shop.
                 </p>
               </ScrollReveal>
-              <ScrollReveal delayMs={120}>
+              <ScrollReveal delayMs={120} className="sd-right sd-r2">
                 <Link
                   href="/products"
                   className="inline-flex h-12 w-fit items-center gap-2 rounded-full bg-[color:var(--brand-gold)] px-7 text-[14px] font-semibold text-[#0E0E10] shadow-[0_10px_40px_-8px_rgba(233,168,32,0.55)] transition-colors hover:bg-[color:var(--brand-gold-light)]"
@@ -383,7 +383,7 @@ export default async function Home() {
                 </Link>
               </ScrollReveal>
             </div>
-            <ScrollReveal delayMs={160} className="mt-8">
+            <ScrollReveal delayMs={160} className="sd-right sd-r2 mt-8">
               <ProductRail>
                 {featured.map((p) => (
                   <ProductCard
@@ -398,7 +398,7 @@ export default async function Home() {
                 ))}
               </ProductRail>
             </ScrollReveal>
-            <div className="mt-10 flex flex-wrap gap-2">
+            <div className="sd-up sd-r2 mt-10 flex flex-wrap gap-2">
               {categories.map((c) => (
                 <Link
                   key={c.slug}
@@ -414,7 +414,7 @@ export default async function Home() {
       ) : null}
 
       {/* ── Final CTA ──────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-clip">
         <LogoArt
           crop="mountains"
           soft={false}
@@ -422,7 +422,7 @@ export default async function Home() {
         />
         <div aria-hidden className="absolute left-1/2 top-0 h-[400px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(233,168,32,0.16),transparent_60%)] blur-2xl" />
         <div className="relative mx-auto max-w-[1280px] px-4 py-32 text-center sm:px-6 sm:py-44">
-          <ScrollReveal>
+          <ScrollReveal className="sd-zoom">
             <Eyebrow>Ready when you are</Eyebrow>
             <h2 className="mx-auto mt-6 max-w-[14ch] font-display text-[48px] font-500 leading-[0.98] tracking-apple-mass text-balance sm:text-[80px]">
               Ready to get <span className="italic text-[color:var(--brand-gold)]">dirty?</span>

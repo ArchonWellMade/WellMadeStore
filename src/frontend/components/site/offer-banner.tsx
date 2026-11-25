@@ -18,8 +18,8 @@ export function OfferBanner({
   return (
     <section className="relative border-t border-white/[0.06]">
       <div className="mx-auto max-w-[1280px] px-4 py-20 sm:px-6 sm:py-24">
-        <ScrollReveal>
-          <div className="relative overflow-hidden rounded-[32px] border border-[color:var(--brand-gold)]/40 bg-[linear-gradient(135deg,rgba(233,168,32,0.18)_0%,rgba(233,168,32,0.04)_45%,rgba(10,10,12,0)_100%)] p-8 sm:p-12 lg:p-14">
+        <ScrollReveal className="sd-zoom">
+          <div className="relative overflow-clip rounded-[32px] border border-[color:var(--brand-gold)]/40 bg-[linear-gradient(135deg,rgba(233,168,32,0.18)_0%,rgba(233,168,32,0.04)_45%,rgba(10,10,12,0)_100%)] p-8 sm:p-12 lg:p-14">
             {/* glow + diagonal stripes */}
             <div aria-hidden className="absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(233,168,32,0.35),transparent_65%)] blur-2xl" />
             <div aria-hidden className="absolute inset-y-0 right-0 hidden w-1/2 opacity-[0.07] [background:repeating-linear-gradient(-55deg,#E9A820_0_14px,transparent_14px_34px)] lg:block" />
@@ -48,7 +48,7 @@ export function OfferBanner({
               </div>
 
               {/* Price comparison */}
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="sd-right sd-r2 grid grid-cols-2 gap-3 sm:gap-4">
                 <div className="flex flex-col rounded-[24px] border border-white/10 bg-black/30 p-6 backdrop-blur sm:p-8">
                   <span className="text-[11px] font-semibold uppercase tracking-[0.16em] sm:tracking-[0.28em] text-white/50">Walk-in</span>
                   <span className="relative mt-4 w-fit font-display text-[56px] font-500 leading-none text-white/45 sm:text-[72px]">
