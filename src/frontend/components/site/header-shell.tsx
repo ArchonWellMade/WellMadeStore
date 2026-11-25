@@ -35,7 +35,7 @@ export function HeaderShell({ children }: { children: React.ReactNode }) {
         style={{ viewTransitionName: "site-header" }}
         className={`fixed inset-x-0 top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-500 ${
           transparent
-            ? "border-b border-transparent bg-gradient-to-b from-black/50 to-transparent"
+            ? "stay-dark border-b border-transparent bg-gradient-to-b from-black/50 to-transparent"
             : "border-b border-white/[0.06] bg-[rgba(10,10,12,0.85)] backdrop-blur-xl"
         }`}
       >

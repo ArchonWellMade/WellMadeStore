@@ -52,7 +52,7 @@ export default function ContactPage() {
   return (
     <div className="bg-[#0a0a0c] text-white">
       {/* ── Hero ──────────────────────────────────────────── */}
-      <section className="relative isolate overflow-hidden">
+      <section className="stay-dark relative isolate overflow-hidden">
         <div aria-hidden className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element -- full-bleed background */}
           <img

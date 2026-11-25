@@ -12,7 +12,7 @@ export function Hero() {
     <section
       data-hero
       data-mouse-parallax-root
-      className="hero-section relative isolate overflow-hidden bg-[#0a0a0c] text-white"
+      className="stay-dark hero-section relative isolate overflow-hidden bg-[#0a0a0c] text-white"
     >
       {/* Background photo, pushed right and faded into the dark on the left */}
       <div aria-hidden className="absolute inset-0">
