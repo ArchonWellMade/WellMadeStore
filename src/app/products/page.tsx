@@ -8,7 +8,7 @@ import { getAllProducts } from "@/shared/data/products";
 export const metadata: Metadata = {
   title: "Shop",
   description:
-    "The full RC Adventure shop — RC cars, helicopters, aeroplanes, power boats, engineering vehicles, robots, handheld gimbals, and tech essentials (power banks, cables). RCM certified for Australia.",
+    "Fully hydraulic 1/14 scale RC construction machines from LESU — excavators, loaders, dozers, dump trucks, crane and hooklift trucks. Metal-built, working hydraulics, sold in Australia.",
 };
 
 type SearchParams = { category?: string };
@@ -64,7 +64,7 @@ export default async function ProductsPage({
               style={{ animationDelay: "160ms" }}
             >
               {activeCategory?.longDescription ||
-                "RC cars, helicopters, aeroplanes, power boats, engineering vehicles and robots — plus handheld gimbals and tech essentials. RCM certified for Australia."}
+                "Fully hydraulic 1/14 scale RC construction machines — excavators, loaders, dozers, dump trucks, crane and hooklift trucks. Metal-built with working hydraulics."}
             </p>
           </div>
         </div>

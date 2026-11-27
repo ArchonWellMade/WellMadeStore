@@ -1,7 +1,7 @@
 import { getSupabase } from "@/shared/lib/supabase";
 
-// Old range hidden while the new LESU range is loaded. Set to false to show products again.
-const SHOP_HIDDEN = true;
+// Set to true to hide every product from the shop (e.g. while a new range is loaded).
+const SHOP_HIDDEN = false;
 
 export type Product = {
   slug: string;
@@ -15,7 +15,17 @@ export type Product = {
   is_featured: boolean;
   display_order: number;
   is_active: boolean;
+  /** Supplier item code, e.g. "BA-B0042". */
+  sku: string;
+  /** Model scale, e.g. "1/14". */
+  scale: string;
+  /** Full catalogue photo (with the model's title), shown in the catalogue spread. */
+  hero_url: string;
+  /** Catalogue feature panels: each image already carries its title and text. */
+  tiles: ProductTile[];
 };
+
+export type ProductTile = { title: string; body: string; image: string };
 
 function mapRow(row: {
   slug: string;
@@ -28,6 +38,10 @@ function mapRow(row: {
   is_featured: boolean;
   display_order: number;
   is_active: boolean;
+  sku?: string | null;
+  scale?: string | null;
+  hero_url?: string | null;
+  tiles?: ProductTile[] | null;
 }): Product {
   return {
     slug: row.slug,
@@ -40,6 +54,10 @@ function mapRow(row: {
     is_featured: row.is_featured,
     display_order: row.display_order,
     is_active: row.is_active,
+    sku: row.sku ?? "",
+    scale: row.scale ?? "",
+    hero_url: row.hero_url ?? "",
+    tiles: Array.isArray(row.tiles) ? row.tiles : [],
   };
 }
 

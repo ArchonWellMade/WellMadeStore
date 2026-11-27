@@ -20,7 +20,7 @@ export function displayPrice(price: string | null | undefined): string | null {
 
 /** Studio cut-outs (white background) vs full-bleed lifestyle photos. */
 export function isPhoto(url: string | null | undefined): boolean {
-  return !!url && url.includes("images.unsplash.com");
+  return !!url && (url.includes("images.unsplash.com") || url.includes("/products/lesu/"));
 }
 
 /** Light "studio" backdrop that product cut-outs blend into. */

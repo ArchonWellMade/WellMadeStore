@@ -9,6 +9,7 @@ import { ProductCard, STUDIO_BG, displayPrice, isPhoto } from "@/frontend/compon
 import { ProductStage } from "@/frontend/components/site/product-stage";
 import { ProductKeyNav } from "@/frontend/components/site/product-key-nav";
 import { ProductRail } from "@/frontend/components/site/product-rail";
+import { CatalogueSpread } from "@/frontend/components/site/catalogue-spread";
 import { getCategoryBySlug } from "@/shared/data/categories";
 import { getProductBySlug, getProductsByCategory, type Product } from "@/shared/data/products";
 
@@ -165,6 +166,13 @@ export default async function ProductDetailPage({
               <h1 className="product-rise mt-5 font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[60px]" style={rise(200)}>
                 {product.name}
               </h1>
+              {product.sku ? (
+                <p className="product-rise mt-4" style={rise(240)}>
+                  <span className="inline-flex items-center rounded-[4px] bg-[color:var(--brand-gold)] px-3 py-1 text-[13px] font-bold tracking-wide text-[#0E0E10]">
+                    {product.scale ? `${product.scale} ` : ""}{product.sku}
+                  </span>
+                </p>
+              ) : null}
               {product.short_description ? (
                 <p className="product-rise mt-5 max-w-[34rem] text-[16px] font-300 leading-relaxed text-white/65 sm:text-[17px]" style={rise(280)}>
                   {product.short_description}
@@ -244,6 +252,16 @@ export default async function ProductDetailPage({
         </div>
       </section>
       </ViewTransition>
+
+      {product.tiles.length > 0 && product.hero_url ? (
+        <CatalogueSpread
+          name={product.name}
+          sku={product.sku}
+          scale={product.scale}
+          heroUrl={product.hero_url}
+          tiles={product.tiles}
+        />
+      ) : null}
 
       {related.length > 0 ? (
         <section className="overflow-clip border-t border-white/[0.06]">
