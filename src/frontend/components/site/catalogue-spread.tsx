@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { FadeInOut } from "@/frontend/components/site/scroll-motion";
 import type { ProductTile } from "@/shared/data/products";
 
@@ -12,7 +12,19 @@ export function CatalogueSpread({
   scale,
   heroUrl,
   tiles,
+  eyebrow,
+  title,
+  headerAside,
+  footer,
+  bare = false,
 }: {
+  eyebrow?: string;
+  title?: ReactNode;
+  /** Extra controls shown beside the heading (e.g. prev/next on the homepage). */
+  headerAside?: ReactNode;
+  footer?: ReactNode;
+  /** Render without the outer section/background (when embedded in another section). */
+  bare?: boolean;
   name: string;
   sku: string;
   scale: string;
@@ -47,18 +59,21 @@ export function CatalogueSpread({
   }, []);
 
   return (
-    <section className="stay-dark relative overflow-clip border-t border-white/[0.06] bg-[#07080a]">
-      <div className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:py-28">
-        <FadeInOut from="up" className="mb-12 max-w-3xl lg:mb-16">
+    <section className={bare ? "relative" : "stay-dark relative overflow-clip border-t border-white/[0.06] bg-[#07080a]"}>
+      <div className={bare ? "" : "mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:py-28"}>
+        <div className="mb-12 flex flex-col justify-between gap-6 lg:mb-16 lg:flex-row lg:items-end">
+        <FadeInOut from="up" className="max-w-3xl">
           <p className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-gold)]">
             <span className="h-px w-8 bg-current opacity-70" />
-            {scale ? `${scale} scale` : "Catalogue"}
+            {eyebrow ?? (scale ? `${scale} scale` : "Catalogue")}
             {sku ? ` · ${sku}` : ""}
           </p>
           <h2 className="mt-5 font-display text-[36px] font-500 leading-[1.02] tracking-apple-mass text-white text-balance sm:text-[52px]">
-            Inside the {name.replace(/^AOUE\s*/i, "")}
+            {title ?? <>Inside the {name.replace(/^AOUE\s*/i, "")}</>}
           </h2>
         </FadeInOut>
+        {headerAside}
+        </div>
 
         <div className="grid items-start gap-6 lg:grid-cols-[1.55fr_1fr] lg:gap-8">
           {/* Hero photo, pinned while the panels scroll past */}
@@ -111,6 +126,7 @@ export function CatalogueSpread({
             ))}
           </ol>
         </div>
+        {footer}
       </div>
     </section>
   );

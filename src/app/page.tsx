@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Hero } from "@/frontend/components/site/hero";
 import { ProductCard } from "@/frontend/components/site/product-card";
 import { ProductRail } from "@/frontend/components/site/product-rail";
+import { HomeShowcase } from "@/frontend/components/site/home-showcase";
 import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
 import { CountUp } from "@/frontend/components/site/count-up";
 import { LogoArt } from "@/frontend/components/site/logo-art";
@@ -357,6 +358,13 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── Catalogue showcase: flick through machines ─────── */}
+      <HomeShowcase
+        items={allProducts
+          .filter((p) => p.is_featured && p.tiles.length > 0 && p.hero_url)
+          .map(({ slug, name, sku, scale, hero_url, tiles }) => ({ slug, name, sku, scale, hero_url, tiles }))}
+      />
 
       {/* ── Shop ───────────────────────────────────────────── */}
       {featured.length > 0 ? (
