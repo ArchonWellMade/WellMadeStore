@@ -4,10 +4,11 @@ import { MouseParallax } from "@/frontend/components/site/mouse-parallax";
 import { HeroScrollDriver } from "@/frontend/components/site/hero-scroll-driver";
 import { TRACKS } from "@/shared/data/tracks";
 import { PHOTOS } from "@/shared/data/photos";
+import { HeroProductCarousel, type HeroProduct } from "@/frontend/components/site/hero-product-carousel";
 
 
 
-export function Hero() {
+export function Hero({ products = [] }: { products?: HeroProduct[] }) {
   return (
     <section
       data-hero
@@ -30,7 +31,7 @@ export function Hero() {
         <div className="absolute -right-20 bottom-0 h-[480px] w-[640px] rounded-full bg-[radial-gradient(circle,rgba(42,122,99,0.22),transparent_65%)] blur-2xl" />
       </div>
 
-      <div className="relative mx-auto flex max-w-[1280px] items-center px-4 pb-20 pt-40 sm:px-6 lg:min-h-[clamp(680px,calc(100svh-148px),880px)] lg:pb-24 lg:pt-48">
+      <div className="relative mx-auto grid max-w-[1360px] items-center gap-10 px-4 pb-16 pt-40 sm:px-6 lg:min-h-[clamp(680px,calc(100svh-148px),900px)] lg:grid-cols-[1.05fr_1fr] lg:gap-6 lg:pb-20 lg:pt-44">
         <div className="max-w-[720px]">
           <ScrollReveal>
             <p className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-white/60">
@@ -38,7 +39,7 @@ export function Hero() {
               Now open · Cars, crawlers, dozers &amp; diggers
             </p>
           </ScrollReveal>
-          <h1 className="mt-6 font-display text-[52px] font-500 leading-[0.96] tracking-apple-mass text-balance sm:text-[76px] lg:text-[104px]">
+          <h1 className="mt-6 font-display text-[52px] font-500 leading-[0.96] tracking-apple-mass text-balance sm:text-[76px] lg:text-[84px] xl:text-[96px]">
             The ultimate{" "}
             <em className="font-400 italic text-[color:var(--brand-gold)]">RC</em>{" "}
             experience.
@@ -66,6 +67,15 @@ export function Hero() {
             </Link>
           </ScrollReveal>
         </div>
+
+        {products.length > 0 ? (
+          <ScrollReveal delayMs={200} className="relative">
+            <p className="mb-2 text-center text-[11px] font-semibold uppercase tracking-[0.32em] text-white/50">
+              <span className="text-[color:var(--brand-gold)]">New</span> · Fully hydraulic 1/14 machines
+            </p>
+            <HeroProductCarousel items={products} />
+          </ScrollReveal>
+        ) : null}
       </div>
 
       {/* Track index strip */}

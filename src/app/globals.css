@@ -594,6 +594,10 @@
 }
 @property --offer-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
 @keyframes offerSweep { to { --offer-a: 360deg; } }
+.hero-card-shine {
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.28) 50%, transparent 65%);
+  transform: translateX(-120%); animation: productShine 1.4s 0.35s cubic-bezier(0.22,1,0.36,1) both; pointer-events: none;
+}
 .product-kenburns { animation: productKenBurns 14s ease-in-out infinite alternate; transform-origin: 45% 60%; }
 @keyframes productKenBurns { from { transform: scale(1); } to { transform: scale(1.07) translate3d(-1%, -1%, 0); } }
 .product-shine::after {
@@ -603,7 +607,7 @@
 }
 @keyframes productShine { to { transform: translateX(120%); } }
 @media (prefers-reduced-motion: reduce) {
-  .product-stage-in, .product-rise, .product-float, .product-kenburns, .product-shine::after, .offer-frame { animation: none; }
+  .product-stage-in, .product-rise, .product-float, .product-kenburns, .product-shine::after, .offer-frame, .hero-card-shine { animation: none; }
 }
 
 /* ── View transitions: product morph + directional slides ─ */

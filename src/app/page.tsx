@@ -91,7 +91,11 @@ export default async function Home() {
 
   return (
     <div className="overflow-x-clip bg-[#0a0a0c] text-white">
-      <Hero />
+      <Hero
+        products={allProducts
+          .filter((p) => p.is_featured && p.image_url)
+          .map(({ slug, name, sku, scale, image_url }) => ({ slug, name, sku, scale, image_url }))}
+      />
       <OfferBanner />
 
       {/* ── Tracks ─────────────────────────────────────────── */}
