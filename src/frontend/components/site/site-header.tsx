@@ -10,6 +10,7 @@ const PRIMARY = [
   { href: "/tracks", label: "Tracks" },
   { href: "/tracks#dig-site", label: "Dig Site" },
   { href: "/products", label: "Shop" },
+  { href: "/parts", label: "Parts" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

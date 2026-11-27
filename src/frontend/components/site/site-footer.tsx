@@ -11,6 +11,7 @@ const footerCols = [
       { href: "/products?category=dump-trucks", label: "Dump Trucks" },
       { href: "/products?category=crane-hooklift", label: "Crane & Hooklift Trucks" },
       { href: "/products?category=specialty", label: "Specialty Machines" },
+      { href: "/parts", label: "Parts & Accessories" },
     ],
   },
   {
