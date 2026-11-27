@@ -45,3 +45,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# parts images now live in Supabase Storage
+/public/parts/
+/src/shared/data/parts.json

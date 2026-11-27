@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { ScrollReveal } from "@/frontend/components/site/scroll-reveal";
-import { PARTS, PART_CATEGORIES, partCategorySlug, searchParts } from "@/shared/data/parts";
+import { getPartCategories, searchParts } from "@/shared/data/parts";
 
 export const metadata: Metadata = {
   title: "Parts & Accessories",
@@ -16,14 +16,18 @@ type SearchParams = { category?: string; q?: string; page?: string };
 
 export default async function PartsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const { category, q, page } = await searchParams;
-  const activeCat = PART_CATEGORIES.find((c) => partCategorySlug(c) === category);
-  const list = searchParts({ category: activeCat ? category : undefined, q });
-  const pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
-  const current = Math.min(pages, Math.max(1, Number(page) || 1));
-  const shown = list.slice((current - 1) * PER_PAGE, current * PER_PAGE);
-
-  const counts = new Map<string, number>();
-  for (const p of PARTS) counts.set(p.category, (counts.get(p.category) ?? 0) + 1);
+  const cats = await getPartCategories();
+  const active = cats.find((c) => c.slug === category);
+  const activeCat = active?.title;
+  const totalAll = cats.reduce((s, c) => s + c.count, 0);
+  const current = Math.max(1, Number(page) || 1);
+  const { parts: shown, total } = await searchParts({
+    category: active?.slug,
+    q,
+    page: current,
+    perPage: PER_PAGE,
+  });
+  const pages = Math.max(1, Math.ceil(total / PER_PAGE));
 
   const href = (o: { category?: string | null; page?: number }) => {
     const sp = new URLSearchParams();
@@ -53,7 +57,7 @@ export default async function PartsPage({ searchParams }: { searchParams: Promis
           <div className="max-w-3xl">
             <p className="product-rise inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-gold)]">
               <span className="h-px w-8 bg-current opacity-70" />
-              Parts &amp; accessories · {PARTS.length.toLocaleString()} items
+              Parts &amp; accessories · {totalAll.toLocaleString()} items
             </p>
             <h1
               className="product-rise mt-6 font-display text-[44px] font-500 leading-[0.98] tracking-apple-mass text-balance sm:text-[68px] lg:text-[88px]"
@@ -100,13 +104,13 @@ export default async function PartsPage({ searchParams }: { searchParams: Promis
       <nav aria-label="Part categories" className="sticky top-20 z-30 border-y border-white/[0.06] bg-[#0a0a0c]/80 backdrop-blur-xl lg:top-28">
         <div className="mx-auto flex max-w-[1280px] items-center gap-2 overflow-x-auto px-4 py-3.5 sm:px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <Link href={href({ category: null })} scroll={false} className={pill(!activeCat)}>
-            All <span className={count(!activeCat)}>{PARTS.length}</span>
+            All <span className={count(!activeCat)}>{totalAll}</span>
           </Link>
-          {PART_CATEGORIES.map((c) => {
-            const active = c === activeCat;
+          {cats.map((c) => {
+            const isActive = c.slug === active?.slug;
             return (
-              <Link key={c} href={href({ category: partCategorySlug(c) })} scroll={false} className={pill(active)}>
-                {c} <span className={count(active)}>{counts.get(c) ?? 0}</span>
+              <Link key={c.slug} href={href({ category: c.slug })} scroll={false} className={pill(isActive)}>
+                {c.title} <span className={count(isActive)}>{c.count}</span>
               </Link>
             );
           })}
@@ -115,7 +119,7 @@ export default async function PartsPage({ searchParams }: { searchParams: Promis
 
       <section className="mx-auto max-w-[1280px] px-4 pb-28 pt-10 sm:px-6">
         <p className="mb-6 text-[13px] text-white/45">
-          {list.length.toLocaleString()} {list.length === 1 ? "part" : "parts"}
+          {total.toLocaleString()} {total === 1 ? "part" : "parts"}
           {q ? <> matching “{q}”</> : null}
           {pages > 1 ? <> · page {current} of {pages}</> : null}
         </p>
@@ -128,9 +132,9 @@ export default async function PartsPage({ searchParams }: { searchParams: Promis
                   className="group flex h-full flex-col overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.03] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[color:var(--brand-gold)]/45 hover:shadow-[0_30px_70px_-35px_rgba(233,168,32,0.5)]"
                 >
                   <div className="relative aspect-square overflow-hidden bg-white">
-                    {p.image ? (
+                    {p.image_url ? (
                       <Image
-                        src={p.image}
+                        src={p.image_url}
                         alt={p.name}
                         fill
                         sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"

@@ -4,27 +4,26 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Mail, Phone } from "lucide-react";
 import { FadeInOut } from "@/frontend/components/site/scroll-motion";
-import { PARTS, PARTS_PHONE_HREF, enquireHref, getPart, partCategorySlug } from "@/shared/data/parts";
+import { PARTS_PHONE_HREF, enquireHref, getPart, getPartCategories, getRelatedParts } from "@/shared/data/parts";
 
 type Params = { slug: string };
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
-  const p = getPart((await params).slug);
+  const p = await getPart((await params).slug);
   if (!p) return {};
   return {
     title: `${p.name} (${p.code})`,
     description: `${p.name} — part ${p.code}. Genuine LESU 1/14 RC part. Ask Well Made RC Adventure for price and availability.`,
-    openGraph: p.image ? { images: [p.image] } : undefined,
+    openGraph: p.image_url ? { images: [p.image_url] } : undefined,
   };
 }
 
 export default async function PartPage({ params }: { params: Promise<Params> }) {
-  const p = getPart((await params).slug);
+  const p = await getPart((await params).slug);
   if (!p) notFound();
-  const catSlug = partCategorySlug(p.category);
-  const related = PARTS.filter((x) => x.category === p.category && x.slug !== p.slug && x.image)
-    .filter((x) => x.code.split("-")[0] === p.code.split("-")[0])
-    .slice(0, 8);
+  const [cats, related] = await Promise.all([getPartCategories(), getRelatedParts(p)]);
+  const catSlug = p.category_slug;
+  const catTitle = cats.find((c) => c.slug === catSlug)?.title ?? "Parts";
 
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-white">
@@ -32,14 +31,14 @@ export default async function PartPage({ params }: { params: Promise<Params> }) 
         <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-2 text-[13px] text-white/45">
           <Link href="/parts" className="hover:text-white">Parts</Link>
           <span>/</span>
-          <Link href={`/parts?category=${catSlug}`} className="hover:text-white">{p.category}</Link>
+          <Link href={`/parts?category=${catSlug}`} className="hover:text-white">{catTitle}</Link>
         </nav>
 
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
           <FadeInOut>
             <div className="product-shine relative aspect-square overflow-hidden rounded-[28px] border border-white/[0.08] bg-white">
-              {p.image ? (
-                <Image src={p.image} alt={p.name} fill priority sizes="(max-width: 1024px) 100vw, 600px" className="object-contain p-[6%]" />
+              {p.image_url ? (
+                <Image src={p.image_url} alt={p.name} fill priority sizes="(max-width: 1024px) 100vw, 600px" className="object-contain p-[6%]" />
               ) : (
                 <div className="flex h-full items-center justify-center text-xs uppercase tracking-[0.2em] text-black/35">No photo</div>
               )}
@@ -50,7 +49,7 @@ export default async function PartPage({ params }: { params: Promise<Params> }) 
             <FadeInOut>
               <p className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-gold)]">
                 <span className="h-px w-8 bg-current opacity-70" />
-                {p.category}
+                {catTitle}
               </p>
             </FadeInOut>
             <FadeInOut>
@@ -98,7 +97,7 @@ export default async function PartPage({ params }: { params: Promise<Params> }) 
               {related.map((r) => (
                 <Link key={r.slug} href={`/parts/${r.slug}`} className="group overflow-hidden rounded-[20px] border border-white/[0.08] bg-white/[0.03] transition-colors hover:border-[color:var(--brand-gold)]/45">
                   <div className="relative aspect-square bg-white">
-                    <Image src={r.image!} alt={r.name} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-contain p-[6%] transition-transform duration-700 group-hover:scale-[1.06]" />
+                    <Image src={r.image_url!} alt={r.name} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-contain p-[6%] transition-transform duration-700 group-hover:scale-[1.06]" />
                   </div>
                   <div className="p-4">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-gold)]">{r.code}</p>

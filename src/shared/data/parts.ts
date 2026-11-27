@@ -1,52 +1,82 @@
 import "server-only";
-import data from "./parts.json";
+import { getSupabase } from "@/shared/lib/supabase";
 
 export type Part = {
   slug: string;
   code: string;
   variant: string;
   name: string;
-  category: string;
+  category_slug: string;
   details: string;
   note: string;
   fits: string[];
-  image: string | null;
+  image_url: string | null;
 };
 
-export const PARTS = data as Part[];
+export type PartCategory = { slug: string; title: string; count: number };
 
-export const PART_CATEGORIES = [
-  "Machine Parts & Attachments",
-  "Hydraulics",
-  "Axles & Drivetrain",
-  "Wheels & Tyres",
-  "Chassis & Suspension",
-  "Cab & Body",
-  "Tanks, Exhaust & Boxes",
-  "Lights, Sound & Decals",
-  "Trailers & Truck Kits",
-  "Tools, Hardware & Scenery",
-] as const;
+const COLS = "slug,code,variant,name,category_slug,details,note,fits,image_url";
 
-export function partCategorySlug(c: string) {
-  return c.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+export async function getPartCategories(): Promise<PartCategory[]> {
+  const sb = getSupabase();
+  const [cats, counts] = await Promise.all([
+    sb.from("site_part_categories").select("slug,title").order("display_order"),
+    sb.from("site_part_category_counts").select("category_slug,n"),
+  ]);
+  if (cats.error) throw cats.error;
+  if (counts.error) throw counts.error;
+  const n = new Map((counts.data ?? []).map((c) => [c.category_slug as string, c.n as number]));
+  return (cats.data ?? []).map((c) => ({ slug: c.slug, title: c.title, count: n.get(c.slug) ?? 0 }));
 }
 
-export function getPart(slug: string) {
-  return PARTS.find((p) => p.slug === slug);
+export async function searchParts({
+  category,
+  q,
+  page,
+  perPage,
+}: {
+  category?: string;
+  q?: string;
+  page: number;
+  perPage: number;
+}): Promise<{ parts: Part[]; total: number }> {
+  let query = getSupabase()
+    .from("site_parts")
+    .select(COLS, { count: "exact" })
+    .order("display_order")
+    .range((page - 1) * perPage, page * perPage - 1);
+  if (category) query = query.eq("category_slug", category);
+  const terms = (q ?? "")
+    .toLowerCase()
+    .replace(/[%_,()*\\]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 6);
+  for (const t of terms) query = query.ilike("search_text", `%${t}%`);
+  const { data, error, count } = await query;
+  if (error) throw error;
+  return { parts: (data ?? []) as Part[], total: count ?? 0 };
 }
 
-export function searchParts({ category, q }: { category?: string; q?: string }) {
-  let list = PARTS;
-  if (category) list = list.filter((p) => partCategorySlug(p.category) === category);
-  const terms = (q ?? "").toLowerCase().split(/\s+/).filter(Boolean);
-  if (terms.length) {
-    list = list.filter((p) => {
-      const hay = `${p.name} ${p.code} ${p.variant} ${p.details} ${p.fits.join(" ")}`.toLowerCase();
-      return terms.every((t) => hay.includes(t));
-    });
-  }
-  return list;
+export async function getPart(slug: string): Promise<Part | null> {
+  const { data, error } = await getSupabase().from("site_parts").select(COLS).eq("slug", slug).maybeSingle();
+  if (error) throw error;
+  return (data as Part) ?? null;
+}
+
+export async function getRelatedParts(p: Part, limit = 8): Promise<Part[]> {
+  const prefix = p.code.split("-")[0];
+  const { data, error } = await getSupabase()
+    .from("site_parts")
+    .select(COLS)
+    .eq("category_slug", p.category_slug)
+    .neq("slug", p.slug)
+    .not("image_url", "is", null)
+    .ilike("code", `${prefix}-%`)
+    .order("display_order")
+    .limit(limit);
+  if (error) throw error;
+  return (data ?? []) as Part[];
 }
 
 export const PARTS_EMAIL = "admin@wellmadeblinds.com.au";
