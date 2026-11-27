@@ -588,6 +588,12 @@
 .product-stage-in { animation: productStageIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .product-rise     { animation: productRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .product-float    { animation: productFloat 6s ease-in-out infinite; }
+.offer-frame {
+  background: conic-gradient(from var(--offer-a, 0deg), rgba(233,168,32,0.05), rgba(233,168,32,0.55), rgba(255,231,168,0.9), rgba(233,168,32,0.55), rgba(233,168,32,0.05) 40%, rgba(255,255,255,0.06) 70%, rgba(233,168,32,0.05));
+  animation: offerSweep 9s linear infinite;
+}
+@property --offer-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes offerSweep { to { --offer-a: 360deg; } }
 .product-kenburns { animation: productKenBurns 14s ease-in-out infinite alternate; transform-origin: 45% 60%; }
 @keyframes productKenBurns { from { transform: scale(1); } to { transform: scale(1.07) translate3d(-1%, -1%, 0); } }
 .product-shine::after {
@@ -597,7 +603,7 @@
 }
 @keyframes productShine { to { transform: translateX(120%); } }
 @media (prefers-reduced-motion: reduce) {
-  .product-stage-in, .product-rise, .product-float, .product-kenburns, .product-shine::after { animation: none; }
+  .product-stage-in, .product-rise, .product-float, .product-kenburns, .product-shine::after, .offer-frame { animation: none; }
 }
 
 /* ── View transitions: product morph + directional slides ─ */
