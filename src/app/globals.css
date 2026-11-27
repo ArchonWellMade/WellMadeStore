@@ -588,8 +588,16 @@
 .product-stage-in { animation: productStageIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .product-rise     { animation: productRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .product-float    { animation: productFloat 6s ease-in-out infinite; }
+.product-kenburns { animation: productKenBurns 14s ease-in-out infinite alternate; transform-origin: 45% 60%; }
+@keyframes productKenBurns { from { transform: scale(1); } to { transform: scale(1.07) translate3d(-1%, -1%, 0); } }
+.product-shine::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.22) 50%, transparent 65%);
+  transform: translateX(-120%); animation: productShine 1.6s 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes productShine { to { transform: translateX(120%); } }
 @media (prefers-reduced-motion: reduce) {
-  .product-stage-in, .product-rise, .product-float { animation: none; }
+  .product-stage-in, .product-rise, .product-float, .product-kenburns, .product-shine::after { animation: none; }
 }
 
 /* ── View transitions: product morph + directional slides ─ */

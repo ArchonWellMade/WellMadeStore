@@ -1,60 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
+import { FadeInOut } from "@/frontend/components/site/scroll-motion";
 import type { ProductTile } from "@/shared/data/products";
-
-/** Fades + slides in when scrolled into view, and back out when scrolled away. */
-function FadeInOut({
-  children,
-  delayMs = 0,
-  from = "right",
-  className = "",
-}: {
-  children: ReactNode;
-  delayMs?: number;
-  from?: "right" | "left" | "up";
-  className?: string;
-}) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [shown, setShown] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      queueMicrotask(() => setShown(true));
-      return;
-    }
-    const io = new IntersectionObserver(([e]) => setShown(e.isIntersecting), {
-      threshold: 0.18,
-      rootMargin: "-6% 0px -6% 0px",
-    });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  const hidden =
-    from === "right" ? "translate3d(70px,0,0)" : from === "left" ? "translate3d(-70px,0,0)" : "translate3d(0,50px,0)";
-
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: shown ? 1 : 0,
-        transform: shown ? "translate3d(0,0,0) scale(1)" : `${hidden} scale(0.97)`,
-        filter: shown ? "blur(0)" : "blur(6px)",
-        transition:
-          "opacity 800ms cubic-bezier(0.22,1,0.36,1), transform 900ms cubic-bezier(0.22,1,0.36,1), filter 800ms ease",
-        transitionDelay: shown ? `${delayMs}ms` : "0ms",
-        willChange: "opacity, transform, filter",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
 
 /** The catalogue page rebuilt for the web: hero photo on the left, feature panels on the right. */
 export function CatalogueSpread({
@@ -144,7 +93,7 @@ export function CatalogueSpread({
           <ol className="flex flex-col gap-4 sm:gap-5">
             {tiles.map((t, i) => (
               <li key={t.image}>
-                <FadeInOut delayMs={i * 90}>
+                <FadeInOut from="right" delayMs={i * 90}>
                   <figure className="group overflow-hidden rounded-[18px] border border-white/10 bg-[#1f2328] shadow-[0_30px_60px_-35px_rgba(0,0,0,0.9)] transition-transform duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_40px_70px_-30px_rgba(233,168,32,0.35)]">
                     <Image
                       src={t.image}

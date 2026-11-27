@@ -10,6 +10,8 @@ import { ProductStage } from "@/frontend/components/site/product-stage";
 import { ProductKeyNav } from "@/frontend/components/site/product-key-nav";
 import { ProductRail } from "@/frontend/components/site/product-rail";
 import { CatalogueSpread } from "@/frontend/components/site/catalogue-spread";
+import { FadeInOut, ScrollFloat } from "@/frontend/components/site/scroll-motion";
+import { LetterReveal } from "@/frontend/components/site/letter-reveal";
 import { getCategoryBySlug } from "@/shared/data/categories";
 import { getProductBySlug, getProductsByCategory, type Product } from "@/shared/data/products";
 
@@ -145,6 +147,7 @@ export default async function ProductDetailPage({
 
           <div className="grid gap-10 py-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:py-14">
             {product.image_url ? (
+              <ScrollFloat className="product-shine relative overflow-hidden rounded-[32px]">
               <ProductStage
                 name={`product-${product.slug}`}
                 src={product.image_url}
@@ -152,6 +155,7 @@ export default async function ProductDetailPage({
                 photo={isPhoto(product.image_url)}
                 studioClass={STUDIO_BG}
               />
+              </ScrollFloat>
             ) : (
               <div className={`aspect-square rounded-[32px] ${STUDIO_BG}`} />
             )}
@@ -164,7 +168,7 @@ export default async function ProductDetailPage({
                 </p>
               ) : null}
               <h1 className="product-rise mt-5 font-display text-[44px] font-500 leading-[1] tracking-apple-mass text-balance sm:text-[60px]" style={rise(200)}>
-                {product.name}
+                <LetterReveal text={product.name} triggerOnMount stepMs={22} delayMs={180} />
               </h1>
               {product.sku ? (
                 <p className="product-rise mt-4" style={rise(240)}>
@@ -174,12 +178,12 @@ export default async function ProductDetailPage({
                 </p>
               ) : null}
               {product.short_description ? (
-                <p className="product-rise mt-5 max-w-[34rem] text-[16px] font-300 leading-relaxed text-white/65 sm:text-[17px]" style={rise(280)}>
+                <FadeInOut delayMs={60}><p className="product-rise mt-5 max-w-[34rem] text-[16px] font-300 leading-relaxed text-white/65 sm:text-[17px]" style={rise(280)}>
                   {product.short_description}
-                </p>
+                </p></FadeInOut>
               ) : null}
 
-              <div className="product-rise mt-8 flex items-baseline gap-3 border-t border-white/[0.08] pt-8" style={rise(360)}>
+              <FadeInOut delayMs={120}><div className="product-rise mt-8 flex items-baseline gap-3 border-t border-white/[0.08] pt-8" style={rise(360)}>
                 {price ? (
                   <>
                     <span className="text-[12px] uppercase tracking-[0.2em] text-white/45">From</span>
@@ -193,9 +197,9 @@ export default async function ProductDetailPage({
                     </span>
                   </span>
                 )}
-              </div>
+              </div></FadeInOut>
 
-              <div className="product-rise mt-8 flex flex-col gap-3 sm:flex-row" style={rise(440)}>
+              <FadeInOut delayMs={180}><div className="product-rise mt-8 flex flex-col gap-3 sm:flex-row" style={rise(440)}>
                 <Link
                   href="/contact"
                   className="inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[color:var(--brand-gold)] px-8 py-4 text-[15px] font-semibold text-[#0E0E10] shadow-[0_10px_40px_-8px_rgba(233,168,32,0.55)] transition-colors hover:bg-[color:var(--brand-gold-light)]"
@@ -208,19 +212,18 @@ export default async function ProductDetailPage({
                 >
                   Call +61 415 381 093
                 </a>
-              </div>
+              </div></FadeInOut>
 
               {product.features.length > 0 ? (
                 <ul className="mt-10 grid gap-2.5 sm:grid-cols-2">
                   {product.features.map((feature, i) => (
-                    <li
-                      key={feature}
+                    <li key={feature}><FadeInOut delayMs={i * 60}><div
                       className="product-rise flex items-start gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.02] px-4 py-3 text-[14px] leading-snug text-white/80"
                       style={rise(520 + i * 70)}
                     >
                       <span aria-hidden className="mt-0.5 text-[color:var(--brand-gold)]">✓</span>
                       {feature}
-                    </li>
+                    </div></FadeInOut></li>
                   ))}
                 </ul>
               ) : null}

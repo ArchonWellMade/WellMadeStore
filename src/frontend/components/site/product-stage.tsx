@@ -58,7 +58,7 @@ export function ProductStage({
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 640px"
-          className={photo ? "object-cover" : `object-contain p-[8%] mix-blend-multiply ${zoom ? "" : "product-float"}`}
+          className={photo ? `object-cover ${zoom ? "" : "product-kenburns"}` : `object-contain p-[8%] mix-blend-multiply ${zoom ? "" : "product-float"}`}
         />
       </div>
       <span
